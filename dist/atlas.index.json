@@ -1,0 +1,26 @@
+{
+  "version": "0.2.0",
+  "files": {
+    "atlas.stats.js": {
+      "bytes": 720
+    },
+    "atlas.core.js": {
+      "bytes": 109673
+    },
+    "atlas.search.js": {
+      "bytes": 219572
+    },
+    "atlas.detail.js": {
+      "bytes": 117985
+    },
+    "atlas.core.en.js": {
+      "bytes": 122934
+    },
+    "atlas.search.en.js": {
+      "bytes": 286923
+    },
+    "atlas.detail.en.js": {
+      "bytes": 138189
+    }
+  }
+}

@@ -1,0 +1,25 @@
+/*
+ * FDE Atlas UI System ���� ����ļ���
+ *
+ * ����˳�򼴲��˳�򣬲������������
+ *   tokens/primitive  ԭʼֵ����������
+ *     ��
+ *   tokens/semantic   ����ӳ�䣨���� primitive��
+ *     ��
+ *   base/reset        reset ��ȫ���Ű棨���� semantic ������
+ *     ��
+ *   components/*      ��������� reset �ṩ��ȷ������㣩
+ *     ��
+ *   utilities/*       �����ࣨ��󣬱�֤�ܸ���������Ӿ�Ĭ��ֵ��
+ *
+ * ���ֻ�������� --semantic-*������ --p-* ��ΪԽ�㡣
+ * ����Լ���� scripts/check-ui.mjs �Զ���顣
+ */
+
+@import "./tokens/primitive.css";
+@import "./tokens/semantic.css";
+@import "./base/reset.css";
+@import "./components/controls.css";
+@import "./components/display.css";
+@import "./components/composite.css";
+@import "./utilities/utilities.css";

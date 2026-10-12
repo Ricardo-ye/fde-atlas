@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="可检索、可核对、可迁移的企业 AI 落地案例库。不止记录用了什么模型，而是还原从业务问题到可复用经验的完整交付链路。">
+<title>企业 AI 落地案例图谱｜FDE Atlas</title>
+
+<!--
+  样式分两处引入：
+    src/ui/index.css    设计系统（令牌 → reset → 组件 → 工具类）
+    src/styles/app.css  仅本应用特有的布局（导航、筛选面板、图例）
+
+  这样切分让 UI 系统保持通用：任何项目引入 src/ui/ 都能得到一致的
+  外观与交互，而不必带走这个应用的业务布局。
+
+  单页双语言：语言切换由 src/main.js 在运行时完成，不再有"英文页忘了重新生成"
+  这个失效模式。
+
+  数据分层加载，见文件末尾注释。
+-->
+<link rel="stylesheet" href="src/ui/index.css">
+<link rel="stylesheet" href="src/styles/app.css">
+</head>
+<body>
+
+<a class="ui-skip-link" href="#grid" data-i18n="a11y.skipToContent"></a>
+
+<!-- 顶部导航 -->
+<header class="app-nav">
+  <div class="ui-container app-nav__inner">
+    <a class="app-brand" href="#">
+      FDE Atlas
+      <span class="app-brand__count" id="navCount"></span>
+    </a>
+    <span class="ui-spacer"></span>
+    <nav class="ui-row ui-row--sm" aria-label="Primary">
+      <a class="app-nav__link" href="styleguide.html" data-i18n="nav.styleguide"></a>
+      <button class="ui-icon-button" id="langToggle" type="button"
+              data-i18n-attr="aria-label:nav.langAria">
+        <span data-i18n="nav.lang"></span>
+      </button>
+      <button class="ui-icon-button" id="themeToggle" type="button"
+              data-i18n-attr="aria-label:nav.theme" aria-label="外观">
+        <span id="themeIcon" aria-hidden="true">◐</span>
+        <span id="themeLabel"></span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<div class="ui-container">
+
+  <!-- Hero -->
+  <section class="app-hero">
+    <span class="app-hero__kicker" data-i18n="hero.kicker"></span>
+    <h1 class="app-hero__title" data-i18n="hero.title"></h1>
+    <p class="app-hero__lead" data-i18n="hero.lead"></p>
+    <p class="app-hero__stats ui-numeric" id="heroStats"></p>
+  </section>
+
+  <!-- 筛选面板 -->
+  <section class="app-filters" aria-label="Filters">
+    <div class="app-filters__grid">
+      <div class="ui-field app-filters__search">
+        <label class="ui-field__label" for="search" data-i18n="nav.search"></label>
+        <div class="ui-search">
+          <span class="ui-search__icon" aria-hidden="true">⌕</span>
+          <input type="search" class="ui-input" id="search" autocomplete="off" spellcheck="false"
+                 data-i18n-attr="placeholder:filter.search;aria-label:filter.searchAria">
+          <button class="ui-search__clear" id="searchClear" type="button" data-visible="false"
+                  data-i18n="filter.clear"></button>
+        </div>
+      </div>
+
+      <div class="ui-field">
+        <label class="ui-field__label" for="detailLevel" data-i18n="filter.detail"></label>
+        <select class="ui-select" id="detailLevel"></select>
+      </div>
+
+      <div class="ui-field">
+        <label class="ui-field__label" for="industry" data-i18n="filter.industry"></label>
+        <select class="ui-select" id="industry"></select>
+      </div>
+
+      <div class="ui-field">
+        <label class="ui-field__label" for="source" data-i18n="filter.source"></label>
+        <select class="ui-select" id="source"></select>
+      </div>
+
+      <div class="ui-field">
+        <label class="ui-field__label" for="evidence" data-i18n="filter.evidence"></label>
+        <select class="ui-select" id="evidence"></select>
+      </div>
+
+      <div class="ui-field">
+        <label class="ui-field__label" for="fde" data-i18n="filter.fde"></label>
+        <select class="ui-select" id="fde"></select>
+      </div>
+
+      <div class="ui-field">
+        <label class="ui-field__label" for="maturity" data-i18n="filter.maturity"></label>
+        <select class="ui-select" id="maturity"></select>
+      </div>
+    </div>
+
+    <div class="app-filters__footer">
+      <label class="ui-checkbox">
+        <input type="checkbox" class="ui-checkbox__input" id="technicalOnly">
+        <span data-i18n="filter.technical"></span>
+      </label>
+      <span class="ui-numeric app-filters__count" id="count" role="status" aria-live="polite"></span>
+      <button class="ui-button ui-button--link ui-button--sm" id="resetBtn" type="button"
+              data-i18n="filter.reset"></button>
+    </div>
+  </section>
+
+  <!-- 案例网格 -->
+  <main id="grid" class="app-grid" aria-live="polite"></main>
+
+  <!-- 图例：说明两套独立维度 -->
+  <section class="app-legend">
+    <div class="app-legend__group">
+      <p class="ui-label app-legend__title" data-i18n="legend.detail"></p>
+      <div class="app-legend__row"><span class="ui-badge ui-badge--grade-a" data-i18n="detail.level.deep"></span></div>
+      <div class="app-legend__row"><span class="ui-badge ui-badge--grade-b" data-i18n="detail.level.standard"></span></div>
+      <div class="app-legend__row"><span class="ui-badge ui-badge--grade-c" data-i18n="detail.level.overview"></span></div>
+    </div>
+
+    <div class="app-legend__group">
+      <p class="ui-label app-legend__title" data-i18n="legend.evidence"></p>
+      <div class="app-legend__row"><span class="ui-badge ui-badge--grade-a" data-i18n="evidence.level.A"></span></div>
+      <div class="app-legend__row"><span class="ui-badge ui-badge--grade-b" data-i18n="evidence.level.B"></span></div>
+      <div class="app-legend__row"><span class="ui-badge ui-badge--grade-c" data-i18n="evidence.level.C"></span></div>
+      <div class="app-legend__row"><span class="ui-badge ui-badge--grade-d" data-i18n="evidence.level.D"></span></div>
+    </div>
+
+    <div class="app-legend__note">
+      <div class="ui-alert ui-alert--info">
+        <span class="ui-alert__icon" aria-hidden="true">ℹ</span>
+        <div class="ui-alert__content" data-i18n="legend.hint"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="app-footer">
+    <p data-i18n="footer.license"></p>
+    <p data-i18n="evidence.hint"></p>
+  </footer>
+</div>
+
+<!-- 案例详情弹窗 -->
+<div class="ui-modal" id="modal" data-open="false" role="dialog" aria-modal="true"
+     aria-labelledby="modalTitle">
+  <div class="ui-modal__panel" id="modalPanel">
+    <div class="ui-modal__header">
+      <div class="ui-modal__heading">
+        <h2 class="ui-modal__title" id="modalTitle"></h2>
+        <p class="ui-modal__subtitle" id="modalScenario"></p>
+        <div class="ui-row ui-row--wrap ui-row--sm" id="modalBadges"></div>
+      </div>
+      <span class="ui-numeric ui-muted" id="modalCounter"></span>
+      <div class="ui-row ui-row--sm">
+        <button class="ui-icon-button ui-icon-button--sm" id="modalPrev" type="button"
+                data-i18n-attr="aria-label:modal.prev;title:modal.prev">←</button>
+        <button class="ui-icon-button ui-icon-button--sm" id="modalNext" type="button"
+                data-i18n-attr="aria-label:modal.next;title:modal.next">→</button>
+        <button class="ui-button ui-button--secondary ui-button--sm" id="modalCopy" type="button"
+                data-i18n="modal.copy"></button>
+        <button class="ui-icon-button ui-icon-button--sm ui-icon-button--borderless" id="modalClose" type="button"
+                data-i18n-attr="aria-label:modal.close">×</button>
+      </div>
+    </div>
+    <div class="ui-modal__body" id="modalBody"></div>
+  </div>
+</div>
+
+<div class="ui-toast" id="toast" role="status" aria-live="polite" data-visible="false"></div>
+
+<!--
+  分层数据加载：
+    stats + core   首屏同步加载（1KB + 107KB），页面立即可交互
+    search.js     用户首次输入搜索词时由 src/core/data-loader.js 注入
+    detail.js     打开案例详情时按需注入
+    *.en.js       切换到英文时才加载
+
+  保留 <script src> 而非全部改用 fetch，是为了在 file:// 与老浏览器下
+  仍能工作；data-loader 会在脚本方式失败时自动回退到 fetch。
+  首次使用前需运行 npm run build 生成 dist/ 产物。
+-->
+<script src="dist/atlas.stats.js"></script>
+<script src="dist/atlas.core.js"></script>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>

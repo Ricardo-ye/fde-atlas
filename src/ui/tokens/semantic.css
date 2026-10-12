@@ -1,0 +1,246 @@
+/*
+ * Semantic ���Ʋ� ���� ����"��;"��������"��ʲô��ɫʵ��"��
+ *
+ * �����ʽֻ�������� --semantic-*��������ֱ������ --p-*��primitive����
+ * ���������� = ֻ�ı��ļ��������κ������
+ *
+ * �������⣺light / dark / contrast���߶Աȶȣ���
+ * contrast ����������û���ǿ�⻷����ȥ�����еͶԱȶȵ��м����
+ * �߿���ء������뱳���ﵽ���Աȡ�
+ */
+
+:root,
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  /* ---- ���� ---- */
+  --semantic-bg-canvas: var(--p-neutral-50);
+  --semantic-bg-surface: var(--p-neutral-0);
+  --semantic-bg-raised: var(--p-neutral-0);
+  --semantic-bg-sunken: var(--p-neutral-100);
+  --semantic-bg-overlay: rgba(13, 17, 23, 0.45);
+  --semantic-bg-scrim: rgba(255, 255, 255, 0.82);
+
+  /* ---- �ı� ---- */
+  --semantic-text-primary: var(--p-neutral-900);
+  --semantic-text-secondary: var(--p-neutral-600);
+  --semantic-text-tertiary: var(--p-neutral-500);
+  --semantic-text-disabled: var(--p-neutral-400);
+  --semantic-text-inverse: var(--p-neutral-0);
+  --semantic-text-link: var(--p-blue-700);
+  --semantic-text-link-hover: var(--p-blue-800);
+
+  /* ---- �߿� ---- */
+  --semantic-border-subtle: var(--p-neutral-200);
+  --semantic-border-default: var(--p-neutral-300);
+  --semantic-border-strong: var(--p-neutral-400);
+  --semantic-border-focus: var(--p-blue-600);
+
+  /* ---- ��ɫ ---- */
+  --semantic-accent-bg: var(--p-blue-600);
+  --semantic-accent-bg-hover: var(--p-blue-700);
+  --semantic-accent-bg-active: var(--p-blue-800);
+  --semantic-accent-text: var(--p-neutral-0);
+  --semantic-accent-subtle-bg: var(--p-blue-50);
+  --semantic-accent-subtle-text: var(--p-blue-700);
+  --semantic-accent-border: var(--p-blue-300);
+
+  /* ---- ״̬ɫ ---- */
+  --semantic-success-bg: var(--p-green-600);
+  --semantic-success-subtle-bg: var(--p-green-50);
+  --semantic-success-subtle-text: var(--p-green-700);
+  --semantic-warning-bg: var(--p-amber-500);
+  --semantic-warning-subtle-bg: var(--p-amber-50);
+  --semantic-warning-subtle-text: var(--p-amber-700);
+  --semantic-danger-bg: var(--p-red-600);
+  --semantic-danger-subtle-bg: var(--p-red-50);
+  --semantic-danger-subtle-text: var(--p-red-700);
+  --semantic-info-bg: var(--p-cyan-600);
+  --semantic-info-subtle-bg: var(--p-cyan-50);
+  --semantic-info-subtle-text: var(--p-cyan-700);
+
+  /* ---- ����̬ ---- */
+  --semantic-hover-bg: rgba(16, 24, 40, 0.045);
+  --semantic-active-bg: rgba(16, 24, 40, 0.075);
+  --semantic-selected-bg: var(--p-blue-50);
+
+  /* ---- �ּ�ר��ɫ��֤�ݵȼ� / ��ϸ�ȣ� ----
+     ����ɫֻ������"�ּ�չʾ"��������ͨ��״̬���� */
+  --semantic-grade-a: var(--p-green-600);
+  --semantic-grade-b: var(--p-blue-600);
+  --semantic-grade-c: var(--p-amber-600);
+  --semantic-grade-d: var(--p-violet-600);
+  --semantic-grade-neutral: var(--p-neutral-500);
+  --semantic-grade-a-bg: var(--p-green-50);
+  --semantic-grade-b-bg: var(--p-blue-50);
+  --semantic-grade-c-bg: var(--p-amber-50);
+  --semantic-grade-d-bg: var(--p-violet-50);
+
+  /* ---- ��Ӱ����ɫ�������ø��ص���Ӱ�����θ� ---- */
+  --semantic-shadow-xs: var(--p-shadow-xs);
+  --semantic-shadow-sm: var(--p-shadow-sm);
+  --semantic-shadow-md: var(--p-shadow-md);
+  --semantic-shadow-lg: var(--p-shadow-lg);
+  --semantic-shadow-xl: var(--p-shadow-xl);
+
+  --semantic-ring-offset: var(--p-neutral-0);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --semantic-bg-canvas: var(--p-neutral-1000);
+  --semantic-bg-surface: var(--p-neutral-950);
+  --semantic-bg-raised: var(--p-neutral-900);
+  --semantic-bg-sunken: var(--p-neutral-900);
+  --semantic-bg-overlay: rgba(0, 0, 0, 0.62);
+  --semantic-bg-scrim: rgba(13, 17, 23, 0.8);
+
+  --semantic-text-primary: var(--p-neutral-50);
+  --semantic-text-secondary: var(--p-neutral-400);
+  --semantic-text-tertiary: var(--p-neutral-500);
+  --semantic-text-disabled: var(--p-neutral-600);
+  --semantic-text-inverse: var(--p-neutral-950);
+  --semantic-text-link: var(--p-blue-300);
+  --semantic-text-link-hover: var(--p-blue-200);
+
+  --semantic-border-subtle: rgba(255, 255, 255, 0.08);
+  --semantic-border-default: rgba(255, 255, 255, 0.14);
+  --semantic-border-strong: rgba(255, 255, 255, 0.24);
+  --semantic-border-focus: var(--p-blue-400);
+
+  --semantic-accent-bg: var(--p-blue-500);
+  --semantic-accent-bg-hover: var(--p-blue-400);
+  --semantic-accent-bg-active: var(--p-blue-300);
+  --semantic-accent-text: var(--p-neutral-1000);
+  --semantic-accent-subtle-bg: rgba(59, 118, 246, 0.16);
+  --semantic-accent-subtle-text: var(--p-blue-300);
+  --semantic-accent-border: rgba(147, 184, 253, 0.4);
+
+  --semantic-success-bg: var(--p-green-500);
+  --semantic-success-subtle-bg: rgba(20, 160, 106, 0.16);
+  --semantic-success-subtle-text: var(--p-green-300);
+  --semantic-warning-bg: var(--p-amber-500);
+  --semantic-warning-subtle-bg: rgba(217, 138, 0, 0.16);
+  --semantic-warning-subtle-text: var(--p-amber-300);
+  --semantic-danger-bg: var(--p-red-500);
+  --semantic-danger-subtle-bg: rgba(214, 69, 69, 0.16);
+  --semantic-danger-subtle-text: rgba(242, 160, 160, 1);
+  --semantic-info-bg: var(--p-cyan-500);
+  --semantic-info-subtle-bg: rgba(6, 182, 212, 0.16);
+  --semantic-info-subtle-text: var(--p-cyan-300);
+
+  --semantic-hover-bg: rgba(255, 255, 255, 0.06);
+  --semantic-active-bg: rgba(255, 255, 255, 0.1);
+  --semantic-selected-bg: rgba(59, 118, 246, 0.14);
+
+  --semantic-grade-a: var(--p-green-300);
+  --semantic-grade-b: var(--p-blue-300);
+  --semantic-grade-c: var(--p-amber-300);
+  --semantic-grade-d: var(--p-violet-300);
+  --semantic-grade-neutral: var(--p-neutral-400);
+  --semantic-grade-a-bg: rgba(20, 160, 106, 0.14);
+  --semantic-grade-b-bg: rgba(59, 118, 246, 0.14);
+  --semantic-grade-c-bg: rgba(217, 138, 0, 0.14);
+  --semantic-grade-d-bg: rgba(124, 86, 232, 0.14);
+
+  /* ��ɫ�������Ӱ�ú�ɫ�����ӣ�������ģ������ */
+  --semantic-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --semantic-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.45), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --semantic-shadow-md: 0 4px 10px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.35);
+  --semantic-shadow-lg: 0 14px 26px rgba(0, 0, 0, 0.55), 0 6px 10px rgba(0, 0, 0, 0.4);
+  --semantic-shadow-xl: 0 28px 48px rgba(0, 0, 0, 0.65), 0 10px 18px rgba(0, 0, 0, 0.45);
+
+  --semantic-ring-offset: var(--p-neutral-950);
+}
+
+/*
+ * �߶Աȶ����⡣
+ *
+ * Ŀ�겻��"���ÿ�"������ WCAG AAA�����ĶԱ� ��7:1����
+ * �ؼ�������ȥ������ rgba ��͸�����ӣ����ǻή����Ч�Աȶȣ���
+ * �߿�Ӵֵ� 2px ������ǿ����ɫ����������˵�ɫ�ס�
+ */
+:root[data-theme="contrast"] {
+  color-scheme: light;
+
+  --semantic-bg-canvas: var(--p-neutral-0);
+  --semantic-bg-surface: var(--p-neutral-0);
+  --semantic-bg-raised: var(--p-neutral-0);
+  --semantic-bg-sunken: var(--p-neutral-100);
+  --semantic-bg-overlay: rgba(0, 0, 0, 0.75);
+  --semantic-bg-scrim: var(--p-neutral-0);
+
+  --semantic-text-primary: #000000;
+  --semantic-text-secondary: var(--p-neutral-800);
+  --semantic-text-tertiary: var(--p-neutral-700);
+  --semantic-text-disabled: var(--p-neutral-600);
+  --semantic-text-inverse: var(--p-neutral-0);
+  --semantic-text-link: var(--p-blue-800);
+  --semantic-text-link-hover: var(--p-blue-950);
+
+  --semantic-border-subtle: var(--p-neutral-400);
+  --semantic-border-default: var(--p-neutral-600);
+  --semantic-border-strong: var(--p-neutral-900);
+  --semantic-border-focus: var(--p-blue-800);
+
+  --semantic-accent-bg: var(--p-blue-800);
+  --semantic-accent-bg-hover: var(--p-blue-900);
+  --semantic-accent-bg-active: var(--p-blue-950);
+  --semantic-accent-text: var(--p-neutral-0);
+  --semantic-accent-subtle-bg: var(--p-blue-100);
+  --semantic-accent-subtle-text: var(--p-blue-950);
+  --semantic-accent-border: var(--p-blue-800);
+
+  --semantic-success-bg: var(--p-green-900);
+  --semantic-success-subtle-bg: var(--p-green-100);
+  --semantic-success-subtle-text: var(--p-green-900);
+  --semantic-warning-bg: var(--p-amber-900);
+  --semantic-warning-subtle-bg: var(--p-amber-100);
+  --semantic-warning-subtle-text: var(--p-amber-900);
+  --semantic-danger-bg: var(--p-red-800);
+  --semantic-danger-subtle-bg: var(--p-red-100);
+  --semantic-danger-subtle-text: var(--p-red-900);
+  --semantic-info-bg: var(--p-cyan-700);
+  --semantic-info-subtle-bg: var(--p-cyan-100);
+  --semantic-info-subtle-text: var(--p-cyan-900);
+
+  /* ��̬ͣ��"�߿� + ����"���Ǳ���ɫ�仯����Ϊ�����仯�ڸ߶Ա��²��ײ�� */
+  --semantic-hover-bg: var(--p-neutral-100);
+  --semantic-active-bg: var(--p-neutral-200);
+  --semantic-selected-bg: var(--p-blue-100);
+
+  --semantic-grade-a: var(--p-green-900);
+  --semantic-grade-b: var(--p-blue-900);
+  --semantic-grade-c: var(--p-amber-900);
+  --semantic-grade-d: var(--p-violet-700);
+  --semantic-grade-neutral: var(--p-neutral-800);
+  --semantic-grade-a-bg: var(--p-green-100);
+  --semantic-grade-b-bg: var(--p-blue-100);
+  --semantic-grade-c-bg: var(--p-amber-100);
+  --semantic-grade-d-bg: var(--p-violet-100);
+
+  /* �߶Ա�����"Ӳ�߿�"������Ӱ�������� ���� ��Ӱ�ڴ����ϼ������ɼ� */
+  --semantic-shadow-xs: none;
+  --semantic-shadow-sm: none;
+  --semantic-shadow-md: none;
+  --semantic-shadow-lg: none;
+  --semantic-shadow-xl: none;
+
+  --semantic-ring-offset: var(--p-neutral-0);
+}
+
+/*
+ * ���ϰ���ǿ�Ƹ߶Աȡ�
+ * ĳЩϵͳ��Windows �߶Աȶ�ģʽ�������� forced-colors��
+ * ��ʱӦ��������ӹ���ɫ�����������ص�����ɫ������ϵͳ���ó�ͻ��
+ */
+@media (forced-colors: active) {
+  :root {
+    --semantic-shadow-xs: none;
+    --semantic-shadow-sm: none;
+    --semantic-shadow-md: none;
+    --semantic-shadow-lg: none;
+    --semantic-shadow-xl: none;
+  }
+}

@@ -1,0 +1,42 @@
+name: Validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build (validate + bundle)
+        run: npm run build
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Page, module and UI system self-check
+        run: npm run check:page
+
+      - uses: browser-actions/setup-chrome@v1
+        id: chrome
+
+      - name: Browser integration tests
+        env:
+          BROWSER_PATH: ${{ steps.chrome.outputs.chrome-path }}
+        run: npm run test:browser
+
+      - name: Ensure generated artifacts are committed
+        run: git diff --exit-code -- dist/
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: docs/*.png

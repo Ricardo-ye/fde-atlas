@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<title>������༯�ɲ���</title>
+<link rel="stylesheet" href="/src/ui/index.css">
+<link rel="stylesheet" href="/src/styles/app.css">
+</head>
+<body>
+<!--
+  ������༯�ɲ��ԡ�
+
+  �� tests/suite.mjs �ķֹ����Ǳ߲ⴿ��������߲�"��ʵ DOM �� CSSOM ����"��
+  ��Ⱦ������������ơ������л��Ƿ������Ч ���� ������"����ȫ�̵�ҳ�����"
+  �ĵ�����Դ��
+
+  ���Ƿ�Χ��
+    1. �ֲ����ݲ����ܷ���ȷ������ϲ�
+    2. ��Ƭ/������Ⱦ + XSS ת��
+    3. ɸѡ������һ����
+    4. UI ���ϵͳ�����������ơ����������CSSOM ��������������ʵ���ѣ�
+    5. URL ״̬ͬ������
+    6. ����ժҪ�� Markdown ����
+    7. �����빤�ߺ���
+-->
+<div class="ui-container">
+  <div class="ui-search">
+    <input type="search" class="ui-input" id="search">
+  </div>
+  <select class="ui-select" id="detailLevel"></select>
+  <select class="ui-select" id="evidence"></select>
+  <input type="checkbox" class="ui-checkbox__input" id="technicalOnly">
+  <span id="count"></span>
+  <main id="grid" class="app-grid" aria-live="polite"></main>
+  <div class="ui-modal" id="modal" data-open="false" role="dialog" aria-modal="true">
+    <div class="ui-modal__panel" id="modalPanel">
+      <div class="ui-modal__header"><div id="modalBadges"></div></div>
+      <div class="ui-modal__body" id="modalBody"></div>
+    </div>
+  </div>
+</div>
+<pre id="results" style="font-family:var(--p-font-mono);font-size:12px;padding:16px;white-space:pre-wrap"></pre>
+
+<script>
+// ������ģ��ű�֮ǰע�᣺ģ�鶥�����һ���״���
+// ����������Զ����ִ�У�������ֻ�ܿ���"title û��"��������ԭ��
+window.addEventListener('error', (event) => {
+  const el = document.getElementById('results');
+  if (el) {
+    el.textContent = `SCRIPT ERROR: ${event.message}\n${event.filename}:${event.lineno}:${event.colno}\n\n` + el.textContent;
+    document.title = 'HAS_FAILURE';
+  }
+});
+window.addEventListener('unhandledrejection', (event) => {
+  const el = document.getElementById('results');
+  if (el) {
+    el.textContent = `UNHANDLED REJECTION: ${event.reason?.message || event.reason}\n\n` + el.textContent;
+    document.title = 'HAS_FAILURE';
+  }
+});
+</script>
+
+<script type="module">
+const probe = (stage) => {
+  const el = document.getElementById('results');
+  if (el) el.textContent += `[stage] ${stage}\n`;
+};
+probe('ģ��������');
+
+// ��̬ import() ���ĵ� URL Ϊ��׼�������� import.meta.url ��ʽ��λ��
+const base = new URL('/', location.origin);
+const load = (p) => import(new URL(p, base).href);
+
+let createTranslator, missingKeys, buildIndex, applyFilters, getFacets, enrichIndex;
+let renderCard, renderDetail, renderEmpty, renderSkeleton, renderError, buildSummaryText;
+let esc, debounce, readFromUrl, writeToUrl, countActive;
+
+try {
+  ({ createTranslator, missingKeys } = await load('src/i18n/index.js'));
+  ({ buildIndex, applyFilters, getFacets, enrichIndex } = await load('src/core/search.js'));
+  ({
+    renderCard, renderDetail, renderEmpty,
+    renderSkeleton, renderError, buildSummaryText,
+  } = await load('src/views/render.js'));
+  ({ esc, debounce } = await load('src/core/dom.js'));
+  ({ readFromUrl, writeToUrl, countActive } = await load('src/core/url-state.js'));
+  probe('ģ��������');
+} catch (error) {
+  document.getElementById('results').textContent += `IMPORT ERROR: ${error.message}\n${error.stack}`;
+  document.title = 'HAS_FAILURE';
+  throw error;
+}
+
+/* ---------------- ���طֲ���� ---------------- */
+
+const readLayer = async (file) => {
+  const text = await (await fetch(new URL(`dist/${file}`, base).href)).text();
+  return JSON.parse(text.slice(text.indexOf('{'), text.lastIndexOf('}') + 1));
+};
+
+let core, search, detail, stats;
+try {
+  core = await readLayer('atlas.core.js');
+  search = await readLayer('atlas.search.js');
+  detail = await readLayer('atlas.detail.js');
+  stats = await readLayer('atlas.stats.js');
+  probe(`���ݲ㣺core ${core.cases.length} / search ${search.ids.length} / detail ${Object.keys(detail).length}`);
+} catch (error) {
+  document.getElementById('results').textContent += `DATA ERROR: ${error.message}`;
+  document.title = 'HAS_FAILURE';
+  throw error;
+}
+
+const t = createTranslator('zh');
+const out = [];
+let pass = 0, fail = 0;
+const check = (name, condition, extra = '') => {
+  if (condition) { pass += 1; out.push(`PASS  ${name}`); }
+  else { fail += 1; out.push(`FAIL  ${name}${extra ? ' :: ' + extra : ''}`); }
+};
+
+const grid = document.getElementById('grid');
+
+/* ---------------- 1. ���ݲ������� ---------------- */
+
+check('���Ĳ㰸���ǿ�', core.cases.length > 0);
+check('ͳ�Ʋ�����Ĳ㰸����һ��', stats.total === core.cases.length, `${stats.total} vs ${core.cases.length}`);
+check('ÿ��������������������', core.cases.every((c) => typeof c.detail.score === 'number'));
+check('������ ID ����Ĳ����', search.ids.length === core.cases.length);
+check('������ ID ˳������Ĳ�һ��',
+  JSON.stringify(search.ids) === JSON.stringify(core.cases.map((c) => c.id)));
+check('����㸲��ȫ������ ID', core.cases.every((c) => c.id in detail));
+check('����㺬 source_record', core.cases.every((c) => detail[c.id]?.source_record));
+check('��������޳���Ƭ�ֶΣ��ֲ���Ч��',
+  !('case_summary' in detail[core.cases[0].id]) && !('scenario' in detail[core.cases[0].id]));
+
+/* ---------------- 2. �����븻�� ---------------- */
+
+const index = buildIndex(core.cases);
+check('��������ȫ������', index.length === core.cases.length);
+check('���Ĳ������ѿ����ڿ�Ƭ�ֶμ���',
+  index.every((e) => e.haystack.includes(String(e.record.company).toLowerCase())));
+
+const haystackBefore = index.reduce((sum, e) => sum + e.haystack.length, 0);
+const enriched = enrichIndex(index, search);
+const haystackAfter = index.reduce((sum, e) => sum + e.haystack.length, 0);
+check('�����㸻������ȫ����Ŀ', enriched === core.cases.length, `ʵ�� ${enriched}`);
+check('����������ı������䳤', haystackAfter > haystackBefore * 2,
+  `${haystackBefore} �� ${haystackAfter}`);
+check('��������ѵ��������ݣ����ڿ�Ƭ���',
+  index.some((e) => e.haystack.includes(String(search.fields[0].problem).slice(0, 12).toLowerCase())));
+
+/* ---------------- 3. ��Ƭ��Ⱦ ---------------- */
+
+grid.innerHTML = index.slice(0, 6).map((entry) => renderCard(entry.record, t)).join('');
+const cards = grid.querySelectorAll('.app-case');
+check('��Ⱦ�� 6 �ſ�Ƭ', cards.length === 6, `ʵ�� ${cards.length}`);
+check('��Ƭ����˾����', (cards[0].querySelector('.app-case__title')?.textContent || '').length > 0);
+check('��Ƭ������ ID ����', Boolean(grid.querySelector('[data-case-id]')));
+check('��Ƭʹ�����ϵͳ����', cards[0].querySelectorAll('.ui-badge').length >= 2);
+check('���°��ּ���ɫ��grade-*��',
+  Boolean(cards[0].querySelector('.ui-badge--grade-a, .ui-badge--grade-b, .ui-badge--grade-c')));
+
+/* ---------------- 4. XSS ת�� ---------------- */
+
+const xssCase = {
+  ...core.cases[0],
+  company: '<img src=x onerror="window.__xss=1">',
+  // ע�⣺ע�봮������ܳ�������ıպ� script ��ǩ��������ע�����
+  // ����� HTML ����������ǰ���� script �顣��ƴ�ӹ��졣
+  case_summary: '<' + 'script>window.__xss2=1</' + 'script>',
+};
+grid.innerHTML = renderCard(xssCase, t);
+check('HTML ע�뱻ת�壨δ���� img/script �ڵ㣩',
+  grid.querySelectorAll('img, script').length === 0 && !window.__xss && !window.__xss2);
+check('ע���������ı���ʽ����', (grid.querySelector('.app-case__title')?.textContent || '').includes('<img'));
+
+/* ---------------- 5. ������Ⱦ�����ֲ�ϲ��� ---------------- */
+
+const sample = core.cases.find((c) => c.technical_reference === true) || core.cases[0];
+const searchEntry = index.find((e) => e.record.id === sample.id);
+const merged = {
+  ...sample, ...(searchEntry.search || {}), ...(detail[sample.id] || {}), detail: sample.detail,
+};
+
+document.getElementById('modalBody').innerHTML = renderDetail(merged, t);
+const body = document.getElementById('modalBody');
+check('���麬������', body.querySelectorAll('.ui-steps__item').length === (merged.architecture || []).length);
+check('���麬�����ǩ', body.querySelectorAll('.ui-tag').length === (merged.components || []).length);
+check('���麬��ά������', body.querySelectorAll('.ui-score').length === 6);
+check('ÿά������Ϊ 2 ��',
+  Array.from(body.querySelectorAll('.ui-score__track')).every((tr) => tr.children.length === 2));
+check('���麬֤���˱�', body.querySelectorAll('.ui-keyvalue__item').length >= 4);
+check('���麬��Դֱ���ԣ���������ö���ѱ��ػ���',
+  (body.textContent || '').includes(t.directness(merged.source_record.directness)));
+check('���麬�ֶα߽��', body.querySelectorAll('.ui-table tbody tr').length >= 5);
+check('���麬��Դ������Ϊ https',
+  Array.from(body.querySelectorAll('.ui-source')).every((a) => a.href.startsWith('https://')));
+check('����ʹ�����ϵͳ����', Boolean(body.querySelector('.ui-table-wrap')));
+
+/* ---------------- 6. ��̬/ �Ǽ� / ���� ---------------- */
+
+grid.innerHTML = renderEmpty(t);
+check('��״̬ʹ�� .ui-empty', Boolean(grid.querySelector('.ui-empty__title')));
+
+grid.innerHTML = renderSkeleton(6);
+check('�Ǽ�����Ⱦ 6 ��ռλ', grid.querySelectorAll('.app-case').length === 6);
+check('�Ǽ������Ϊװ���ԣ�aria-hidden��',
+  grid.querySelector('.app-case')?.getAttribute('aria-hidden') === 'true');
+
+grid.innerHTML = renderError('���Դ�����Ϣ');
+check('����̬��Ⱦ�Ұ��������ı�', (grid.textContent || '').includes('���Դ�����Ϣ'));
+
+/* ---------------- 7. ɸѡһ���� ---------------- */
+
+const all = applyFilters(index, {});
+check('Ĭ�Ϸ���ȫ������', all.length === core.cases.length);
+
+const deep = applyFilters(index, { detailLevel: 'deep' });
+check('���ɸѡ������ͳ��һ��', deep.length === stats.summary.by_detail_level.deep,
+  `${deep.length} vs ${stats.summary.by_detail_level.deep}`);
+check('���ɸѡ���ȫΪ deep', deep.every((h) => h.detail.level === 'deep'));
+
+const tech = applyFilters(index, { technicalOnly: true });
+check('�����ο�ɸѡ������ͳ��һ��', tech.length === stats.summary.technical_reference_count,
+  `${tech.length} vs ${stats.summary.technical_reference_count}`);
+
+check('�޽�����ؿ�����', applyFilters(index, { search: 'zzz-�����ڵĹ�˾-zzz' }).length === 0);
+// ע�⣺Array.prototype.map �ĵ����β���ԭ���飬every/filter û�С�
+const sorted = applyFilters(index, {});
+check('�������ϸ�Ƚ���',
+  sorted.every((h, i) => i === 0 || sorted[i - 1].detail.score >= h.detail.score));
+
+/* ---------------- 8. URL ״̬ͬ�� ---------------- */
+
+check('Ĭ��ɸѡ������ query', writeToUrl({ search: '', detailLevel: '', technicalOnly: false }) === '');
+check('URL ��������', (() => {
+  const f = { search: '֪ʶ��', detailLevel: 'deep', evidenceLevel: 'A', technicalOnly: true };
+  const back = readFromUrl(writeToUrl(f));
+  return back.search === f.search && back.detailLevel === 'deep' && back.technicalOnly === true;
+})());
+check('countActive ����ʵ��������', countActive({ search: 'x', detailLevel: 'deep' }) === 2);
+check('��ʵ location ������', (() => {
+  const filters = readFromUrl('?q=abc&d=deep');
+  return filters.search === 'abc' && filters.detailLevel === 'deep';
+})());
+
+/* ---------------- 9. ����ժҪ ---------------- */
+
+const summary = buildSummaryText(merged, t);
+check('ժҪ������ ID', summary.includes(merged.id));
+check('ժҪ�� Markdown �����﷨', summary.includes(']('));
+check('ժҪ������Դ URL', summary.includes(merged.url));
+check('ժҪ��ȫ��������Դ', (merged.additional_sources || []).every((s) => summary.includes(s.url)));
+
+/* ---------------- 10. UI ���ϵͳ ---------------- */
+
+// �ؼ�������ֻ�� load �¼� ���� link.sheet �����Ѵ����� cssRules ��Ϊ�ա�
+// ��ѯ�� cssRules �ǿղ�����������賬ʱ���ס�
+const waitForStyles = async (timeoutMs = 6000) => {
+  const links = [...document.querySelectorAll('link[rel="stylesheet"]')];
+  const deadline = Date.now() + timeoutMs;
+  while (Date.now() < deadline) {
+    const ready = links.every((link) => {
+      if (!link.sheet) return false;
+      try { return link.sheet.cssRules.length > 0; } catch { return false; }
+    });
+    if (ready) break;
+    await new Promise((r) => setTimeout(r, 50));
+  }
+};
+await waitForStyles();
+await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+
+const sheetState = Array.from(document.styleSheets).map((s) => {
+  try { return (s.href || 'inline').split('/').pop() + '#' + s.cssRules.length; }
+  catch (e) { return (s.href || 'inline').split('/').pop() + '#ERR'; }
+});
+check('��ʽ���Ѽ��أ�cssRules �ǿգ�',
+  sheetState.every((s) => !s.endsWith('#0') && !s.includes('#ERR')), sheetState.join(', '));
+
+const readTheme = () => {
+  const style = getComputedStyle(document.documentElement);
+  return {
+    bg: style.getPropertyValue('--semantic-bg-canvas').trim(),
+    text: style.getPropertyValue('--semantic-text-primary').trim(),
+    accent: style.getPropertyValue('--semantic-accent-bg').trim(),
+    bodyBg: getComputedStyle(document.body).backgroundColor,
+  };
+};
+
+const themes = {};
+for (const name of ['light', 'dark', 'contrast']) {
+  document.documentElement.setAttribute('data-theme', name);
+  await new Promise((r) => requestAnimationFrame(r));
+  themes[name] = readTheme();
+}
+document.documentElement.setAttribute('data-theme', 'light');
+
+check('�������ⶼ�Ѷ����������',
+  Object.values(themes).every((v) => v.bg && v.text && v.accent), JSON.stringify(themes));
+check('��ɫ�밵ɫ�������Ʋ�ͬ', themes.light.bg !== themes.dark.bg, `${themes.light.bg} vs ${themes.dark.bg}`);
+check('�߶Աȶ����ⱳ���볣����ɫ��ͬ', themes.light.bg !== themes.contrast.bg,
+  `${themes.light.bg} vs ${themes.contrast.bg}`);
+check('body ������ʵ��Ч����͸����',
+  themes.light.bodyBg !== '' && themes.light.bodyBg !== 'rgba(0, 0, 0, 0)', themes.light.bodyBg);
+
+// �����ܷ�������������� ���� ����"����д�˵�û����"��Ψһ��ⷽʽ
+grid.innerHTML = renderCard(core.cases[0], t);
+const cardBg = getComputedStyle(grid.querySelector('.app-case')).backgroundColor;
+check('��Ƭ����������������ʵ��Ч', cardBg !== 'rgba(0, 0, 0, 0)', `cardBg=${cardBg}`);
+
+const probeBtn = document.createElement('button');
+probeBtn.className = 'ui-button ui-button--secondary';
+document.body.append(probeBtn);
+const btnHeight = probeBtn.getBoundingClientRect().height;
+const expectedHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--p-control-height-md'));
+check('��ť�߶ȷ��� control-height ����', Math.abs(btnHeight - expectedHeight) < 1.5,
+  `ʵ�� ${btnHeight}px������ ${expectedHeight}px`);
+probeBtn.remove();
+
+/* ---------------- 11. i18n �빤�ߺ��� ---------------- */
+
+check('��Ӣ�İ� key ����', missingKeys('zh').length === 0 && missingKeys('en').length === 0);
+check('esc ת�������', esc('<b>') === '&lt;b&gt;');
+check('esc ת������', esc('"\'x') === '&quot;&#39;x');
+check('esc ���� null', esc(null) === '');
+
+let debounceCalls = 0;
+const debounced = debounce(() => { debounceCalls += 1; }, 30);
+debounced(); debounced(); debounced();
+await new Promise((r) => setTimeout(r, 100));
+check('������ 3 �ε��úϲ�Ϊ 1 ��', debounceCalls === 1, `ʵ�� ${debounceCalls}`);
+debounced.cancel();
+
+/* Actual app regression: exercise the entry module, not just render helpers. */
+const frame = document.createElement('iframe');
+frame.style.cssText = 'width:100%;height:850px';
+document.body.append(frame);
+const until = async (fn) => {
+  for (let i=0;i<160;i++) { if(fn()) return; await new Promise(r=>setTimeout(r,50)); }
+  throw new Error('app regression timeout');
+};
+try {
+  frame.src = '../../index.html?d=deep';
+  await until(()=>frame.contentDocument?.querySelectorAll('#grid [data-case-id]').length>0);
+  let doc=frame.contentDocument;
+  check('��ʵ��ڻָ� URL ɸѡ�ؼ�',doc.getElementById('detailLevel').value==='deep');
+  check('��ʵɸѡѡ����ʾ���Ƽ�����', ['source','industry','fde','maturity'].every(id=>[...doc.getElementById(id).options].slice(1).every(o=>o.textContent.startsWith(o.value+' (')&&!o.textContent.includes('undefined'))));
+  const trigger=doc.querySelector('#grid [data-case-id]');
+  trigger.focus(); trigger.click();
+  await until(()=>doc.getElementById('modal').dataset.loading==='false');
+  check('ֱ�Ӵ�����ȡ����Դ�˱�',doc.getElementById('modalBody').textContent.includes('��Դ'));
+  check('ֱ�Ӵ�����ȡ��ҵ������',doc.getElementById('modalBody').textContent.length>500);
+  check('���������������������',!doc.getElementById('modalCopy').disabled);
+  doc.getElementById('modalNext').click();
+  await until(()=>doc.getElementById('modal').dataset.loading==='false');
+  doc.getElementById('modalClose').click();
+  check('��ҳ��رյ����ָ���������',doc.activeElement===trigger);
+  doc.getElementById('langToggle').click();
+  await until(()=>doc.documentElement.lang==='en'&&!doc.getElementById('langToggle').disabled);
+  const english=doc.getElementById('grid').textContent;
+  doc.getElementById('langToggle').click();
+  await until(()=>doc.documentElement.lang==='zh-CN'&&!doc.getElementById('langToggle').disabled);
+  check('�����������»ָ�����',doc.getElementById('grid').textContent!==english);
+  check('�����л�������ɸѡһ��',doc.getElementById('detailLevel').value==='deep');
+  // Select a search fragment present in full content but absent from core card fields.
+  const searchData=await fetch('../../dist/atlas.search.js').then(r=>r.text());
+  const payload=JSON.parse(searchData.slice(searchData.indexOf(' = ')+3).trim().replace(/;$/,''));
+  const needle=payload.fields[0].problem.slice(0,18);
+  frame.src='../../index.html?q='+encodeURIComponent(needle);
+  await until(()=>frame.contentDocument!==doc && frame.contentDocument?.getElementById('search')?.value===needle && frame.contentDocument?.querySelectorAll('#grid [data-case-id]').length>0);
+  doc=frame.contentDocument;
+  check('������������ʱ��������������',doc.querySelectorAll('#grid [data-case-id]').length>0);
+} catch(error) { check('��ʵӦ�ûع�ִ��',false,error.message); }
+frame.remove();
+
+/* ---------------- ��� ---------------- */
+
+document.getElementById('results').textContent =
+  out.join('\n') + `\n\nTOTAL pass=${pass} fail=${fail}\nRESULT=${fail === 0 ? 'ALL_PASS' : 'HAS_FAILURE'}`;
+document.title = fail === 0 ? 'ALL_PASS' : 'HAS_FAILURE';
+</script>
+</body>
+</html>

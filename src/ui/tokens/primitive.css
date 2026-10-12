@@ -1,0 +1,234 @@
+/*
+ * Primitive ���Ʋ� ���� ԭʼ��ƾ��ߣ��������塣
+ *
+ * ΪʲôҪ��primitive / semantic ���㣺
+ *   primitive ��"���Ǿ�������ɫ 600 ����ɫ"����ԭʼ���ߣ�
+ *   semantic ��"��ɫ������ʲô"����ť����������ɫ��ǿ���߿򣩡�
+ *   �ֿ���"����ɫ����������"ֻ��Ҫ�� semantic ��ָ���µ� primitive��
+ *   �������ڼ��ٸ������ʽ�������ɫֵ��
+ *
+ * ���ļ������κ� var(--semantic-*)����֮��Ȼ ���� ���������������������á�
+ */
+
+:root {
+  /* ------------------------------------------------------------------ *
+   * ɫ��
+   * ɫ�� 50��950��ÿ�� 10 ����ѡ 11 ������Ϊ����ɫ����ǳ������
+   * ����Ҫ�㹻�Ĳ㼶��ȣ���λ̫�ٻᶪʧ�м����
+   * ------------------------------------------------------------------ */
+
+  /* Ʒ��������ɫ��ѡƫ���������ůɫ�����ϱ������� */
+  --p-blue-50: #eef4ff;
+  --p-blue-100: #dbe7fe;
+  --p-blue-200: #bfd4fe;
+  --p-blue-300: #93b8fd;
+  --p-blue-400: #6092fa;
+  --p-blue-500: #3b76f6;
+  --p-blue-600: #2560eb;
+  --p-blue-700: #1d4bd8;
+  --p-blue-800: #1e40af;
+  --p-blue-900: #1e3a8a;
+  --p-blue-950: #172554;
+
+  /* ���Իң���һ����������ⴿ�ҵĴ��� */
+  --p-neutral-0: #ffffff;
+  --p-neutral-50: #f8f9fa;
+  --p-neutral-100: #f1f3f5;
+  --p-neutral-200: #e6e9ec;
+  --p-neutral-300: #d5dae0;
+  --p-neutral-400: #aab2bd;
+  --p-neutral-500: #7d8792;
+  --p-neutral-600: #5b6470;
+  --p-neutral-700: #434c56;
+  --p-neutral-800: #2c343d;
+  --p-neutral-900: #1a2028;
+  --p-neutral-950: #0d1117;
+  --p-neutral-1000: #05080c;
+
+  /* ����ɫ��֤�ݵȼ���״̬��ʶ�� */
+  --p-green-50: #e9f9f1;
+  --p-green-100: #d0f2e0;
+  --p-green-300: #6ddba8;
+  --p-green-500: #14a06a;
+  --p-green-600: #0d8557;
+  --p-green-700: #0b6b47;
+  --p-green-900: #06452c;
+
+  --p-amber-50: #fff8eb;
+  --p-amber-100: #ffeec6;
+  --p-amber-300: #f5c56b;
+  --p-amber-500: #d98a00;
+  --p-amber-600: #b87400;
+  --p-amber-700: #945c00;
+  --p-amber-900: #613c00;
+
+  --p-red-50: #fdf0f0;
+  --p-red-100: #fbdede;
+  --p-red-300: #f2a0a0;
+  --p-red-500: #d64545;
+  --p-red-600: #bf3434;
+  --p-red-700: #9c2b2b;
+  --p-red-800: #7a2020;
+  --p-red-900: #661919;
+
+  --p-violet-50: #f4f2ff;
+  --p-violet-100: #e8e4fd;
+  --p-violet-300: #b8a5fb;
+  --p-violet-500: #7c56e8;
+  --p-violet-600: #6d42dd;
+  --p-violet-700: #5a34b5;
+
+  --p-cyan-50: #ecfeff;
+  --p-cyan-100: #cffafe;
+  --p-cyan-300: #67e8f9;
+  --p-cyan-500: #06b6d4;
+  --p-cyan-600: #0891b2;
+  --p-cyan-700: #0e7490;
+  --p-cyan-900: #164e63;
+
+  /* ------------------------------------------------------------------ *
+   * ��ࣺ4px ��׼��8 �����Ǿ��������������
+   * ���ṩ 0.5 / 1.5 ���������� ���� ȱ�˾͸��������Ӳ��֣������Ǽ�һ��
+   * ------------------------------------------------------------------ */
+  --p-space-0: 0;
+  --p-space-1: 0.25rem;   /* 4px  */
+  --p-space-2: 0.5rem;    /* 8px  */
+  --p-space-3: 0.75rem;   /* 12px */
+  --p-space-4: 1rem;      /* 16px */
+  --p-space-5: 1.5rem;    /* 24px */
+  --p-space-6: 2rem;      /* 32px */
+  --p-space-7: 3rem;      /* 48px */
+  --p-space-8: 4rem;      /* 64px */
+
+  /* ����ࣺ���������� flex/grid �������β��߾࣬��������ͨ���� */
+  --p-space--1: -0.25rem;
+  --p-space--2: -0.5rem;
+  --p-space--3: -0.75rem;
+  --p-space--4: -1rem;
+
+  /* ------------------------------------------------------------------ *
+   * Բ��
+   * ------------------------------------------------------------------ */
+  --p-radius-none: 0;
+  --p-radius-xs: 3px;
+  --p-radius-sm: 6px;
+  --p-radius-md: 9px;
+  --p-radius-lg: 13px;
+  --p-radius-xl: 18px;
+  --p-radius-2xl: 26px;
+  --p-radius-full: 9999px;
+
+  /* ------------------------------------------------------------------ *
+   * �ֺţ�1.2��������Major Third ƫС�������� 15px
+   * 15px ���� 16px������������ 15px ���ܶȸ����ʣ�16px ���Ե���ɢ
+   * ------------------------------------------------------------------ */
+  --p-font-size-xs: 0.6875rem;  /* 11px ���� �����ڽǱ� */
+  --p-font-size-sm: 0.8125rem;  /* 13px */
+  --p-font-size-md: 0.875rem;   /* 14px */
+  --p-font-size-base: 0.9375rem;/* 15px */
+  --p-font-size-lg: 1.125rem;   /* 18px */
+  --p-font-size-xl: 1.375rem;   /* 22px */
+  --p-font-size-2xl: 1.75rem;   /* 28px */
+  --p-font-size-3xl: 2.25rem;   /* 36px */
+  --p-font-size-4xl: 3rem;      /* 48px */
+
+  --p-line-height-tight: 1.25;
+  --p-line-height-snug: 1.4;
+  --p-line-height-normal: 1.5;
+  --p-line-height-relaxed: 1.7;
+
+  --p-font-weight-regular: 400;
+  --p-font-weight-medium: 500;
+  --p-font-weight-semibold: 600;
+  --p-font-weight-bold: 700;
+
+  --p-letter-spacing-tight: -0.02em;
+  --p-letter-spacing-normal: 0;
+  --p-letter-spacing-wide: 0.04em;
+
+  /* ------------------------------------------------------------------ *
+   * ������
+   * �������� PingFang /΢���źڣ�latin ����ϵͳ UI ���� ���� ����������ʵ�
+   * ------------------------------------------------------------------ */
+  --p-font-sans:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+    "Helvetica Neue", Arial, sans-serif;
+  --p-font-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
+
+  /* ------------------------------------------------------------------ *
+   * ��Ӱ���÷ֲ����ģ��ֵ�ѵ���
+   * ÿ����Ӧһ��"Ԫ�ظ���ĸ߶�"�����������ģ�����֡�
+   * ------------------------------------------------------------------ */
+  --p-shadow-none: none;
+  --p-shadow-xs: 0 1px 2px rgba(16, 24, 40, 0.05);
+  --p-shadow-sm:
+    0 1px 3px rgba(16, 24, 40, 0.08),
+    0 1px 2px rgba(16, 24, 40, 0.04);
+  --p-shadow-md:
+    0 4px 8px rgba(16, 24, 40, 0.06),
+    0 2px 4px rgba(16, 24, 40, 0.04);
+  --p-shadow-lg:
+    0 12px 20px rgba(16, 24, 40, 0.08),
+    0 4px 8px rgba(16, 24, 40, 0.04);
+  --p-shadow-xl:
+    0 24px 40px rgba(16, 24, 40, 0.12),
+    0 8px 16px rgba(16, 24, 40, 0.06);
+
+  /* ------------------------------------------------------------------ *
+   * ��Ч���������߶�Ӧ�����˶�����
+   * ------------------------------------------------------------------ */
+  --p-duration-instant: 80ms;
+  --p-duration-fast: 140ms;
+  --p-duration-base: 240ms;
+  --p-duration-slow: 380ms;
+
+  /* �������ߣ����ڽ��붯�����ӿ쵽�� */
+  --p-ease-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  /* �������ߣ������˳��������������� */
+  --p-ease-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  /* ��׼���ߣ�����λ�ñ仯��ͨ�ã� */
+  --p-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  /* ǿ�����ߣ����ص���������Ҫ����ע��Ķ�Ч */
+  --p-ease-emphasized: cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* ------------------------------------------------------------------ *
+   * z-index �㼶�����ж��壬�����������д 9999
+   * ------------------------------------------------------------------ */
+  --p-z-base: 0;
+  --p-z-raised: 10;
+  --p-z-sticky: 100;
+  --p-z-header: 200;
+  --p-z-dropdown: 300;
+  --p-z-overlay: 400;
+  --p-z-modal: 500;
+  --p-z-toast: 600;
+  --p-z-tooltip: 700;
+
+  /* ------------------------------------------------------------------ *
+   * �߿������ģ��
+   * ------------------------------------------------------------------ */
+  --p-border-width-0: 0;
+  --p-border-width-1: 1px;
+  --p-border-width-2: 2px;
+  --p-border-width-3: 3px;
+
+  --p-blur-sm: 4px;
+  --p-blur-md: 8px;
+  --p-blur-lg: 16px;
+  --p-blur-xl: 24px;
+
+  /* ------------------------------------------------------------------ *
+   * ���ֳ���
+   * ------------------------------------------------------------------ */
+  --p-container-sm: 640px;
+  --p-container-md: 900px;
+  --p-container-lg: 1200px;
+  --p-container-xl: 1340px;
+
+  --p-control-height-sm: 28px;
+  --p-control-height-md: 34px;
+  --p-control-height-lg: 42px;
+}

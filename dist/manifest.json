@@ -1,0 +1,2318 @@
+{
+  "generated_from": "data/cases.json",
+  "total": 127,
+  "by_detail_level": {
+    "standard": 77,
+    "overview": 15,
+    "deep": 35
+  },
+  "by_evidence_level": {
+    "A": 104,
+    "B": 23
+  },
+  "by_industry_group": {
+    "�����빤ҵ": 24,
+    "�����빫������": 6,
+    "רҵ����": 7,
+    "��ҵ��Ӫ������": 6,
+    "����������": 17,
+    "��ͨ������������": 11,
+    "ý�塢Ӫ��������": 4,
+    "ҽ����������ѧ": 16,
+    "�����뱣��": 16,
+    "�Ƽ�������": 16,
+    "��Դ�빫����ҵ": 4
+  },
+  "by_source": {
+    "Datawhale": 24,
+    "Palantir": 45,
+    "OpenAI": 34,
+    "��ҵԭʼ����": 16,
+    "IBM": 2,
+    "Microsoft": 3,
+    "AWS": 2,
+    "Google Cloud": 1
+  },
+  "by_maturity_stage": {
+    "������": 72,
+    "��֤�׶�": 8,
+    "δ��ȷ": 2,
+    "��ģ��": 44,
+    "�Ե�": 1
+  },
+  "technical_reference_count": 18,
+  "independently_verified_count": 0,
+  "dimensions": [
+    {
+      "key": "business_context",
+      "zh": "ҵ�񱳾�",
+      "en": "Business context"
+    },
+    {
+      "key": "solution_workflow",
+      "zh": "��������",
+      "en": "Transformation workflow"
+    },
+    {
+      "key": "technical_workflow",
+      "zh": "����������",
+      "en": "Technical workflow"
+    },
+    {
+      "key": "human_governance",
+      "zh": "�˻�������",
+      "en": "Human roles & governance"
+    },
+    {
+      "key": "measured_outcome",
+      "zh": "�������",
+      "en": "Measured outcomes"
+    },
+    {
+      "key": "source_traceability",
+      "zh": "��Դ�ɶ�λ��",
+      "en": "Source traceability"
+    }
+  ],
+  "detail_level_keys": {
+    "deep": "detail.level.deep",
+    "standard": "detail.level.standard",
+    "overview": "detail.level.overview"
+  },
+  "cases": [
+    {
+      "id": "datawhale-001",
+      "detail_score": 8,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "datawhale-002",
+      "detail_score": 8,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "datawhale-003",
+      "detail_score": 8,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "datawhale-004",
+      "detail_score": 8,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "datawhale-005",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "datawhale-006",
+      "detail_score": 5,
+      "detail_level": "overview",
+      "detail_dimensions": {
+        "business_context": 0,
+        "solution_workflow": 0,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 0,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "datawhale-007",
+      "detail_score": 6,
+      "detail_level": "overview",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 0,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "datawhale-008",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 0,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "datawhale-009",
+      "detail_score": 8,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "datawhale-010",
+      "detail_score": 8,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "datawhale-011",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "datawhale-012",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 0,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "datawhale-013",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 0,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "datawhale-014",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 0,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "datawhale-015",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 0,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "datawhale-016",
+      "detail_score": 6,
+      "detail_level": "overview",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 0,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 0,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "datawhale-017",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 0,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "datawhale-018",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 0,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "datawhale-019",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "datawhale-020",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 0,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "datawhale-021",
+      "detail_score": 12,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": []
+    },
+    {
+      "id": "datawhale-022",
+      "detail_score": 12,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": []
+    },
+    {
+      "id": "datawhale-023",
+      "detail_score": 11,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "datawhale-024",
+      "detail_score": 11,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "palantir-001",
+      "detail_score": 8,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 2,
+        "source_traceability": 1
+      },
+      "missing_details": [
+        "business_context",
+        "human_governance",
+        "source_traceability"
+      ]
+    },
+    {
+      "id": "palantir-002",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "palantir-003",
+      "detail_score": 8,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "palantir-004",
+      "detail_score": 8,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "palantir-005",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "palantir-006",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 2,
+        "source_traceability": 1
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "source_traceability"
+      ]
+    },
+    {
+      "id": "palantir-007",
+      "detail_score": 8,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "palantir-008",
+      "detail_score": 6,
+      "detail_level": "overview",
+      "detail_dimensions": {
+        "business_context": 0,
+        "solution_workflow": 0,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "palantir-009",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 0,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "palantir-010",
+      "detail_score": 6,
+      "detail_level": "overview",
+      "detail_dimensions": {
+        "business_context": 0,
+        "solution_workflow": 0,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "palantir-011",
+      "detail_score": 6,
+      "detail_level": "overview",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 1,
+        "source_traceability": 1
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome",
+        "source_traceability"
+      ]
+    },
+    {
+      "id": "palantir-012",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 2,
+        "source_traceability": 1
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "source_traceability"
+      ]
+    },
+    {
+      "id": "palantir-013",
+      "detail_score": 8,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "palantir-014",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 2,
+        "source_traceability": 1
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "source_traceability"
+      ]
+    },
+    {
+      "id": "palantir-015",
+      "detail_score": 6,
+      "detail_level": "overview",
+      "detail_dimensions": {
+        "business_context": 0,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 2,
+        "source_traceability": 1
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "source_traceability"
+      ]
+    },
+    {
+      "id": "openai-001",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "openai-002",
+      "detail_score": 6,
+      "detail_level": "overview",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 0,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "openai-003",
+      "detail_score": 8,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 0,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "openai-004",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "openai-005",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 1,
+        "source_traceability": 1
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome",
+        "source_traceability"
+      ]
+    },
+    {
+      "id": "openai-006",
+      "detail_score": 12,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": []
+    },
+    {
+      "id": "openai-007",
+      "detail_score": 6,
+      "detail_level": "overview",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 1,
+        "source_traceability": 1
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome",
+        "source_traceability"
+      ]
+    },
+    {
+      "id": "openai-008",
+      "detail_score": 5,
+      "detail_level": "overview",
+      "detail_dimensions": {
+        "business_context": 0,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 1,
+        "source_traceability": 1
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome",
+        "source_traceability"
+      ]
+    },
+    {
+      "id": "openai-009",
+      "detail_score": 6,
+      "detail_level": "overview",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 0,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 1,
+        "source_traceability": 1
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome",
+        "source_traceability"
+      ]
+    },
+    {
+      "id": "openai-010",
+      "detail_score": 4,
+      "detail_level": "overview",
+      "detail_dimensions": {
+        "business_context": 0,
+        "solution_workflow": 0,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 1,
+        "source_traceability": 1
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome",
+        "source_traceability"
+      ]
+    },
+    {
+      "id": "openai-011",
+      "detail_score": 4,
+      "detail_level": "overview",
+      "detail_dimensions": {
+        "business_context": 0,
+        "solution_workflow": 0,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 1,
+        "source_traceability": 1
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome",
+        "source_traceability"
+      ]
+    },
+    {
+      "id": "openai-012",
+      "detail_score": 5,
+      "detail_level": "overview",
+      "detail_dimensions": {
+        "business_context": 0,
+        "solution_workflow": 0,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 2,
+        "source_traceability": 1
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "source_traceability"
+      ]
+    },
+    {
+      "id": "openai-013",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 2,
+        "source_traceability": 1
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "source_traceability"
+      ]
+    },
+    {
+      "id": "openai-014",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 0,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 1
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "source_traceability"
+      ]
+    },
+    {
+      "id": "openai-015",
+      "detail_score": 6,
+      "detail_level": "overview",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 0,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 2,
+        "source_traceability": 1
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "source_traceability"
+      ]
+    },
+    {
+      "id": "palantir-016",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "palantir-017",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 2,
+        "source_traceability": 1
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "source_traceability"
+      ]
+    },
+    {
+      "id": "palantir-018",
+      "detail_score": 8,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 1
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "source_traceability"
+      ]
+    },
+    {
+      "id": "palantir-019",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "palantir-020",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 1,
+        "source_traceability": 1
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome",
+        "source_traceability"
+      ]
+    },
+    {
+      "id": "palantir-021",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "palantir-022",
+      "detail_score": 8,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 1
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "source_traceability"
+      ]
+    },
+    {
+      "id": "palantir-023",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "palantir-024",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 1,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 1
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "technical_workflow",
+        "human_governance",
+        "source_traceability"
+      ]
+    },
+    {
+      "id": "palantir-025",
+      "detail_score": 8,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 1
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "source_traceability"
+      ]
+    },
+    {
+      "id": "palantir-026",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "palantir-027",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 1,
+        "source_traceability": 1
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome",
+        "source_traceability"
+      ]
+    },
+    {
+      "id": "palantir-028",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "palantir-029",
+      "detail_score": 8,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "palantir-030",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "palantir-031",
+      "detail_score": 8,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "palantir-032",
+      "detail_score": 8,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "palantir-033",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "palantir-034",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "palantir-035",
+      "detail_score": 8,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "palantir-036",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "palantir-037",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "palantir-038",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "palantir-039",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "palantir-040",
+      "detail_score": 10,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "palantir-041",
+      "detail_score": 8,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "palantir-042",
+      "detail_score": 8,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "palantir-043",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "palantir-044",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "palantir-045",
+      "detail_score": 8,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "openai-016",
+      "detail_score": 10,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "openai-017",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "openai-018",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "openai-019",
+      "detail_score": 10,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "openai-020",
+      "detail_score": 10,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "openai-021",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "openai-022",
+      "detail_score": 8,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "openai-023",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 2,
+        "technical_workflow": 1,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "technical_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "openai-024",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 1,
+        "human_governance": 0,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "technical_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "openai-025",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 1,
+        "human_governance": 0,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "technical_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "openai-026",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 0,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "openai-027",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "openai-028",
+      "detail_score": 10,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "openai-029",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 1,
+        "human_governance": 1,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "technical_workflow",
+        "human_governance",
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "openai-030",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 2,
+        "technical_workflow": 1,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "technical_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "openai-031",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 2,
+        "technical_workflow": 1,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "technical_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "openai-032",
+      "detail_score": 9,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "openai-033",
+      "detail_score": 10,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "openai-034",
+      "detail_score": 10,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 1,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "openai-035",
+      "detail_score": 7,
+      "detail_level": "standard",
+      "detail_dimensions": {
+        "business_context": 1,
+        "solution_workflow": 1,
+        "technical_workflow": 1,
+        "human_governance": 0,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "business_context",
+        "solution_workflow",
+        "technical_workflow",
+        "human_governance"
+      ]
+    },
+    {
+      "id": "enterprise-dbs-001",
+      "detail_score": 12,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": []
+    },
+    {
+      "id": "enterprise-vodafone-001",
+      "detail_score": 12,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": []
+    },
+    {
+      "id": ep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": []
+    },
+    {
+      "id": "ibm-lockheed-martin-001",
+      "detail_score": 12,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": []
+    },
+    {
+      "id": "ibm-medtronic-001",
+      "detail_score": 12,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": []
+    },
+    {
+      "id": "microsoft-rolls-royce-001",
+      "detail_score": 12,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": []
+    },
+    {
+      "id": "microsoft-presidio-001",
+      "detail_score": 12,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": []
+    },
+    {
+      "id": "microsoft-syneos-health-001",
+      "detail_score": 12,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": []
+    },
+    {
+      "id": "aws-jabil-001",
+      "detail_score": 12,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": []
+    },
+    {
+      "id": "aws-altisource-001",
+      "detail_score": 12,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": []
+    },
+    {
+      "id": "google-berenberg-001",
+      "detail_score": 12,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": []
+    },
+    {
+      "id": "enterprise-uber-genie-001",
+      "detail_score": 11,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "enterprise-grab-llm-kit-001",
+      "detail_score": 12,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": []
+    },
+    {
+      "id": "enterprise-bosch-visual-inspection-001",
+      "detail_score": 12,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": []
+    },
+    {
+      "id": "enterprise-bmw-factory-genius-001",
+      "detail_score": 11,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 1,
+        "source_traceability": 2
+      },
+      "missing_details": [
+        "measured_outcome"
+      ]
+    },
+    {
+      "id": "enterprise-mckinsey-lilli-001",
+      "detail_score": 12,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": []
+    },
+    {
+      "id": "enterprise-block-goose-g2-001",
+      "detail_score": 12,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": []
+    },
+    {
+      "id": "enterprise-telstra-ai-001",
+      "detail_score": 12,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": []
+    },
+    {
+      "id": "enterprise-doordash-eval-flywheel-001",
+      "detail_score": 12,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": []
+    },
+    {
+      "id": "enterprise-bayer-prince-001",
+      "detail_score": 12,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": []
+    },
+    {
+      "id": "enterprise-nubank-support-agents-001",
+      "detail_score": 12,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": []
+    },
+    {
+      "id": "enterprise-meta-expert-second-brain-001",
+      "detail_score": 12,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": []
+    },
+    {
+      "id": "enterprise-doctolib-ai-factory-001",
+      "detail_score": 12,
+      "detail_level": "deep",
+      "detail_dimensions": {
+        "business_context": 2,
+        "solution_workflow": 2,
+        "technical_workflow": 2,
+        "human_governance": 2,
+        "measured_outcome": 2,
+        "source_traceability": 2
+      },
+      "missing_details": []
+    }
+  ]
+}

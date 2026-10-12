@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>设计系统 · FDE Atlas UI</title>
+<meta name="description" content="FDE Atlas UI 设计系统：令牌、组件与规范的可交互参考。">
+
+<link rel="stylesheet" href="src/ui/index.css">
+<link rel="stylesheet" href="src/styles/app.css">
+</head>
+<body>
+
+<a class="ui-skip-link" href="#main">跳到主要内容</a>
+
+<header class="app-nav">
+  <div class="ui-container app-nav__inner">
+    <a class="app-brand" href="index.html">
+      ← FDE Atlas
+    </a>
+    <span class="ui-spacer"></span>
+    <nav class="ui-row ui-row--sm">
+      <button class="ui-icon-button" id="themeToggle" type="button" aria-label="切换主题">
+        <span id="themeIcon" aria-hidden="true">◐</span>
+        <span id="themeLabel"></span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<div class="ui-container">
+  <section class="app-hero">
+    <span class="app-hero__kicker">DESIGN SYSTEM</span>
+    <h1 class="app-hero__title">FDE Atlas UI</h1>
+    <p class="app-hero__lead">
+      三层令牌架构（primitive → semantic → 组件），四套主题，含 20+ 组件。
+      零第三方依赖，全部为原生 CSS 与原生 JS。
+    </p>
+  </section>
+
+  <div class="app-sg-layout">
+    <!-- 侧边目录 -->
+    <aside class="app-sg-side">
+      <nav class="ui-stack ui-stack--sm" aria-label="组件目录">
+        <p class="ui-label">基础</p>
+        <a class="app-sg-link" href="#colors">颜色</a>
+        <a class="app-sg-link" href="#typography">排版</a>
+        <a class="app-sg-link" href="#spacing">间距与尺寸</a>
+        <a class="app-sg-link" href="#motion">动效</a>
+        <p class="ui-label ui-mt-4">组件</p>
+        <a class="app-sg-link" href="#buttons">按钮</a>
+        <a class="app-sg-link" href="#forms">表单</a>
+        <a class="app-sg-link" href="#badges">徽章与标签</a>
+        <a class="app-sg-link" href="#cards">卡片与统计</a>
+        <a class="app-sg-link" href="#feedback">反馈</a>
+        <a class="app-sg-link" href="#data">表格与步骤</a>
+        <a class="app-sg-link" href="#overlay">弹窗</a>
+        <p class="ui-label ui-mt-4">主题</p>
+        <a class="app-sg-link" href="#themes">主题对比</a>
+        <a class="app-sg-link" href="#a11y">可访问性</a>
+      </nav>
+    </aside>
+
+    <main id="main" class="app-sg-main">
+
+      <!-- ========== 颜色 ========== -->
+      <section id="colors" class="app-sg-section">
+        <h2 class="app-sg-title">颜色</h2>
+        <p class="app-sg-desc">
+          语义令牌按用途命名（<code>--semantic-text-primary</code>），
+          指向 primitive 调色板（<code>--p-blue-600</code>）。
+          换主题只改 semantic 层，组件样式一行不动。
+        </p>
+
+        <h3 class="ui-label ui-mt-5">语义令牌（当前主题生效）</h3>
+        <div id="semanticSwatches" class="app-sg-swatches"></div>
+
+        <h3 class="ui-label ui-mt-5">primitive 色板</h3>
+        <div id="primitiveSwatches" class="app-sg-swatches"></div>
+      </section>
+
+      <!-- ========== 排版 ========== -->
+      <section id="typography" class="app-sg-section">
+        <h2 class="app-sg-title">排版</h2>
+        <p class="app-sg-desc">正文 15px、行高 1.5；字号按约 1.2 倍递增。中文优先 PingFang SC / 微软雅黑。</p>
+        <div id="typeScale" class="ui-stack ui-stack--lg"></div>
+      </section>
+
+      <!-- ========== 间距 ========== -->
+      <section id="spacing" class="app-sg-section">
+        <h2 class="app-sg-title">间距与尺寸</h2>
+        <p class="app-sg-desc">4px 基准，共 9 档（含负间距用于消除外边距）。控件高度三档：28 / 34 / 42 px。</p>
+        <div id="spaceScale" class="ui-stack ui-stack--sm"></div>
+      </section>
+
+      <!-- ========== 动效 ========== -->
+      <section id="motion" class="app-sg-section">
+        <h2 class="app-sg-title">动效</h2>
+        <p class="app-sg-desc">三条曲线对应三种运动性质：减速（进入）、加速（退出）、标准（位置变化）。全局尊重 <code>prefers-reduced-motion</code>。</p>
+        <div class="ui-table-wrap">
+          <table class="ui-table">
+            <thead><tr><th>令牌</th><th>时长</th><th>用途</th></tr></thead>
+            <tbody>
+              <tr><td><code>--p-duration-instant</code></td><td class="ui-numeric">80ms</td><td>按下反馈、颜色微调</td></tr>
+              <tr><td><code>--p-duration-fast</code></td><td class="ui-numeric">140ms</td><td>悬停、边框与文字颜色</td></tr>
+              <tr><td><code>--p-duration-base</code></td><td class="ui-numeric">240ms</td><td>弹窗进出、开关滑动</td></tr>
+              <tr><td><code>--p-duration-slow</code></td><td class="ui-numeric">380ms</td><td>大面积布局变化</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ========== 按钮 ========== -->
+      <section id="buttons" class="app-sg-section">
+        <h2 class="app-sg-title">按钮</h2>
+        <p class="app-sg-desc">
+          6 种 variant × 3 种 size。按下时有 1px 位移反馈，提供物理感。
+        </p>
+
+        <h3 class="ui-label ui-mt-5">Variant</h3>
+        <div class="ui-row ui-row--wrap">
+          <button class="ui-button ui-button--primary">主要</button>
+          <button class="ui-button ui-button--secondary">次要</button>
+          <button class="ui-button ui-button--subtle">柔和</button>
+          <button class="ui-button ui-button--ghost">幽灵</button>
+          <button class="ui-button ui-button--danger">危险</button>
+          <button class="ui-button ui-button--link">链接</button>
+        </div>
+
+        <h3 class="ui-label ui-mt-5">Size</h3>
+        <div class="ui-row ui-row--wrap ui-row--sm">
+          <button class="ui-button ui-button--primary ui-button--sm">小 28px</button>
+          <button class="ui-button ui-button--primary">中 34px</button>
+          <button class="ui-button ui-button--primary ui-button--lg">大 42px</button>
+        </div>
+
+        <h3 class="ui-label ui-mt-5">状态</h3>
+        <div class="ui-row ui-row--wrap">
+          <button class="ui-button ui-button--primary" disabled>禁用</button>
+          <button class="ui-button ui-button--primary ui-button--loading">加载中</button>
+          <button class="ui-icon-button" aria-label="图标按钮">◎</button>
+          <button class="ui-icon-button" aria-pressed="true" aria-label="已选中">◉</button>
+          <span class="ui-tooltip" data-tooltip="悬停显示提示">悬停我</span>
+        </div>
+      </section>
+
+      <!-- ========== 表单 ========== -->
+      <section id="forms" class="app-sg-section">
+        <h2 class="app-sg-title">表单</h2>
+        <div class="ui-grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
+          <div class="ui-field">
+            <label class="ui-field__label" for="sg-input">输入框</label>
+            <input class="ui-input" id="sg-input" placeholder="占位文字">
+            <span class="ui-field__hint">辅助说明文字</span>
+          </div>
+
+          <div class="ui-field">
+            <label class="ui-field__label" for="sg-search">搜索框</label>
+            <div class="ui-search">
+              <span class="ui-search__icon" aria-hidden="true">⌕</span>
+              <input class="ui-input" id="sg-search" placeholder="搜索…">
+              <button class="ui-search__clear" data-visible="true" aria-label="清空">×</button>
+            </div>
+          </div>
+
+          <div class="ui-field">
+            <label class="ui-field__label" for="sg-select">下拉选择</label>
+            <select class="ui-select" id="sg-select">
+              <option>全部</option>
+              <option>深度案例</option>
+              <option>标准案例</option>
+            </select>
+          </div>
+
+          <div class="ui-field">
+            <label class="ui-field__label" for="sg-invalid">错误态</label>
+            <input class="ui-input ui-input--invalid" id="sg-invalid" value="无效输入" aria-invalid="true">
+            <span class="ui-field__error"><span aria-hidden="true">⚠</span> 该字段必填</span>
+          </div>
+        </div>
+
+        <h3 class="ui-label ui-mt-5">选择类</h3>
+        <div class="ui-row ui-row--wrap ui-row--lg">
+          <label class="ui-checkbox"><input type="checkbox" class="ui-checkbox__input" checked><span>已勾选</span></label>
+          <label class="ui-checkbox"><input type="checkbox" class="ui-checkbox__input"><span>未勾选</span></label>
+          <label class="ui-checkbox"><input type="checkbox" class="ui-checkbox__input" disabled><span>禁用</span></label>
+          <label class="ui-radio"><input type="radio" name="sg-radio" class="ui-radio__input" checked><span>单选 A</span></label>
+          <label class="ui-radio"><input type="radio" name="sg-radio" class="ui-radio__input"><span>单选 B</span></label>
+          <label class="ui-switch">
+            <input type="checkbox" class="ui-switch__input" checked>
+            <span class="ui-switch__track"><span class="ui-switch__thumb"></span></span>
+            <span>开关</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- ========== 徽章 ========== -->
+      <section id="badges" class="app-sg-section">
+        <h2 class="app-sg-title">徽章与标签</h2>
+        <p class="app-sg-desc">
+          tone 决定徽章"传达什么"而非"长什么样"，新增语气只需定义一组 semantic 变量。
+          grade-* 用于分级标识（证据等级 A→D、详细度 深→浅）。
+        </p>
+
+        <h3 class="ui-label ui-mt-5">语气</h3>
+        <div class="ui-row ui-row--wrap">
+          <span class="ui-badge ui-badge--neutral">中性</span>
+          <span class="ui-badge ui-badge--accent">强调</span>
+          <span class="ui-badge ui-badge--success">成功</span>
+          <span class="ui-badge ui-badge--warning">警告</span>
+          <span class="ui-badge ui-badge--danger">危险</span>
+          <span class="ui-badge ui-badge--grade-a ui-badge--dot">带圆点</span>
+        </div>
+
+        <h3 class="ui-label ui-mt-5">分级</h3>
+        <div class="ui-row ui-row--wrap">
+          <span class="ui-badge ui-badge--grade-a">A 级｜案例级直接来源</span>
+          <span class="ui-badge ui-badge--grade-b">B 级｜官方汇总来源</span>
+          <span class="ui-badge ui-badge--grade-c">C 级｜可信二次材料</span>
+          <span class="ui-badge ui-badge--grade-d">D 级｜线索待核验</span>
+        </div>
+
+        <h3 class="ui-label ui-mt-5">标签</h3>
+        <div class="ui-row ui-row--wrap ui-row--sm">
+          <span class="ui-tag">知识库 / RAG</span>
+          <span class="ui-tag">Embedding</span>
+          <span class="ui-tag ui-tag--selected">已选中</span>
+          <span class="ui-tag ui-tag--interactive">可点击</span>
+          <span class="ui-tag ui-tag--selected">带删除 <button class="ui-tag__remove" aria-label="移除">×</button></span>
+        </div>
+      </section>
+
+      <!-- ========== 卡片 ========== -->
+      <section id="cards" class="app-sg-section">
+        <h2 class="app-sg-title">卡片与统计</h2>
+        <div class="ui-grid ui-grid--auto">
+          <article class="ui-card ui-card--interactive">
+            <div class="ui-card__header">
+              <div class="ui-row ui-row--sm">
+                <span class="ui-badge ui-badge--grade-a">深度案例</span>
+                <span class="ui-badge ui-badge--accent">技术方案</span>
+              </div>
+              <h3 class="ui-card__title">Palantir · 航空制造</h3>
+              <p class="ui-card__subtitle">生产工作流重构与可复用的实施路径</p>
+            </div>
+            <p class="ui-card__body ui-card__clamp">
+              这条卡片演示 .ui-card 的完整结构：hover 时边框加深、阴影升级、整体上移 1px。
+              摘要限四行，避免长短内容导致网格高度参差。
+            </p>
+            <div class="ui-card__footer">
+              <a href="#cards">查看详情 →</a>
+              <span class="ui-spacer"></span>
+              <span class="ui-mono">palantir-001</span>
+            </div>
+          </article>
+
+          <div class="ui-card">
+            <div class="ui-grid ui-grid--stats">
+              <div class="ui-stat">
+                <span class="ui-stat__value">127</span>
+                <span class="ui-stat__label">案例总数</span>
+              </div>
+              <div class="ui-stat">
+                <span class="ui-stat__value">35</span>
+                <span class="ui-stat__label">深度案例</span>
+              </div>
+            </div>
+            <div class="ui-stat">
+              <span class="ui-stat__value">107<span style="font-size:0.5em"> KB</span></span>
+              <span class="ui-stat__label">首屏数据（原 978 KB，减少 89%）</span>
+              <span class="ui-stat__delta ui-stat__delta--down">↓ 89%</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 反馈 ========== -->
+      <section id="feedback" class="app-sg-section">
+        <h2 class="app-sg-title">反馈</h2>
+        <div class="ui-stack">
+          <div class="ui-alert ui-alert--info">
+            <span class="ui-alert__icon" aria-hidden="true">ℹ</span>
+            <div class="ui-alert__content">提示：证据等级衡量来源能否被定位复核，不等于真实性评分。</div>
+          </div>
+          <div class="ui-alert ui-alert--success">
+            <span class="ui-alert__icon" aria-hidden="true">✓</span>
+            <div class="ui-alert__content">成功：校验通过，127 条案例结构一致。</div>
+          </div>
+          <div class="ui-alert ui-alert--warning">
+            <span class="ui-alert__icon" aria-hidden="true">⚠</span>
+            <div class="ui-alert__content">警告：14 组架构模板被多条案例共用，建议逐条重写。</div>
+          </div>
+          <div class="ui-alert ui-alert--danger">
+            <span class="ui-alert__icon" aria-hidden="true">✕</span>
+            <div class="ui-alert__content">错误：主来源链接必须使用 HTTPS。</div>
+          </div>
+
+          <h3 class="ui-label ui-mt-4">空状态</h3>
+          <div class="ui-empty">
+            <span class="ui-empty__icon" aria-hidden="true">⌕</span>
+            <p class="ui-empty__title">没有匹配的案例</p>
+            <p class="ui-empty__hint">试试减少筛选条件、换个关键词，或重置全部筛选。</p>
+          </div>
+
+          <h3 class="ui-label ui-mt-4">骨架屏</h3>
+          <div class="ui-row ui-row--wrap" aria-hidden="true">
+            <div class="ui-skeleton ui-skeleton--badge" style="width:90px"></div>
+            <div class="ui-skeleton ui-skeleton--title" style="width:220px"></div>
+            <div class="ui-skeleton ui-skeleton--text" style="width:100%"></div>
+            <div class="ui-skeleton ui-skeleton--circle" style="width:32px;height:32px"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 数据展示 ========== -->
+      <section id="data" class="app-sg-section">
+        <h2 class="app-sg-title">表格与步骤</h2>
+        <div class="ui-table-wrap">
+          <table class="ui-table">
+            <caption>六维详细度评分规则（每维 0–2 分，满分 12）</caption>
+            <thead>
+              <tr><th scope="col">维度</th><th scope="col">满分条件</th><th scope="col">一分条件</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>业务背景</td><td>problem ≥ 50 字</td><td>≥ 25 字</td></tr>
+              <tr><td>改造流程</td><td>solution ≥ 60 字</td><td>≥ 30 字</td></tr>
+              <tr><td>技术工作流</td><td>architecture ≥6 步且 components ≥ 5 项</td><td>architecture ≥ 4 步</td></tr>
+              <tr><td>人机与治理</td><td>human ≥ 35 字且 fde_actions ≥ 5 项</td><td>human ≥ 18 字</td></tr>
+              <tr><td>量化结果</td><td>含"数字 + 单位"或货币符号</td><td>≥ 20 字定性描述</td></tr>
+              <tr><td>来源可定位性</td><td>evidence_level = A</td><td>B 或 C</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="ui-label ui-mt-5">步骤流</h3>
+        <ol class="ui-steps">
+          <li class="ui-steps__item">业务数据、文档与系统接口作为输入</li>
+          <li class="ui-steps__item">文档解析、切分与元数据标注</li>
+          <li class="ui-steps__item">Embedding 与语义索引建立</li>
+          <li class="ui-steps__item">按当前问题召回相似案例与规则</li>
+          <li class="ui-steps__item">LLM 基于证据生成建议并附出处</li>
+          <li class="ui-steps__item">专家确认后新经验回写知识库</li>
+        </ol>
+
+        <h3 class="ui-label ui-mt-5">键值网格与来源卡</h3>
+        <div class="ui-keyvalue">
+          <div class="ui-keyvalue__item">
+            <span class="ui-keyvalue__label">发布方</span>
+            <span class="ui-keyvalue__value">Datawhale FDE100</span>
+          </div>
+          <div class="ui-keyvalue__item">
+            <span class="ui-keyvalue__label">指标口径</span>
+            <span class="ui-keyvalue__value">来源方披露，未独立审计</span>
+          </div>
+          <div class="ui-keyvalue__item">
+            <span class="ui-keyvalue__label">查阅日期</span>
+            <span class="ui-keyvalue__value ui-numeric">2026-09-19</span>
+          </div>
+        </div>
+        <div class="app-detail__sources ui-mt-3">
+          <a class="ui-source" href="https://www.palantir.com/new-homepage/" target="_blank" rel="noopener noreferrer">
+            <span class="ui-source__title">Palantir 客户部署案例</span>
+            <span class="ui-source__meta">https://www.palantir.com/new-homepage/</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- ========== 弹窗 ========== -->
+      <section id="overlay" class="app-sg-section">
+        <h2 class="app-sg-title">弹窗与浮层</h2>
+        <p class="app-sg-desc">弹窗支持焦点陷阱、Esc 关闭、焦点归还。支持窄/中/宽三档。</p>
+        <div class="ui-row ui-row--wrap">
+          <button class="ui-button ui-button--secondary" id="demoModal">打开弹窗</button>
+          <button class="ui-button ui-button--secondary" id="demoToast">弹出提示</button>
+        </div>
+
+        <h3 class="ui-label ui-mt-5">选项卡</h3>
+        <div class="ui-tabs" role="tablist">
+          <button class="ui-tabs__tab" role="tab" aria-selected="true">全部案例</button>
+          <button class="ui-tabs__tab" role="tab" aria-selected="false">深度</button>
+          <button class="ui-tabs__tab" role="tab" aria-selected="false">标准</button>
+          <button class="ui-tabs__tab" role="tab" aria-selected="false">概览</button>
+        </div>
+      </section>
+
+      <!-- ========== 主题 ========== -->
+      <section id="themes" class="app-sg-section">
+        <h2 class="app-sg-title">主题对比</h2>
+        <p class="app-sg-desc">
+          四套主题：跟随系统 / 亮色 / 暗色 / 高对比度。
+          高对比度模式去掉所有半透明叠加、边框加粗至 2px，正文对比度达到 WCAG AAA。
+        </p>
+        <div class="ui-row ui-row--wrap">
+          <button class="ui-button ui-button--secondary" data-theme-set="light">亮色</button>
+          <button class="ui-button ui-button--secondary" data-theme-set="dark">暗色</button>
+          <button class="ui-button ui-button--secondary" data-theme-set="contrast">高对比度</button>
+          <button class="ui-button ui-button--secondary" data-theme-set="system">跟随系统</button>
+        </div>
+
+        <div class="ui-table-wrap ui-mt-4">
+          <table class="ui-table">
+            <thead><tr><th>语义令牌</th><th>亮色</th><th>暗色</th><th>高对比度</th></tr></thead>
+            <tbody id="themeCompare"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ========== 可访问性 ========== -->
+      <section id="a11y" class="app-sg-section">
+        <h2 class="app-sg-title">可访问性</h2>
+        <div class="ui-table-wrap">
+          <table class="ui-table">
+            <thead><tr><th>能力</th><th>实现</th></tr></thead>
+            <tbody>
+              <tr><td>键盘导航</td><td>全部交互元素可聚焦，焦点环使用 <code>:focus-visible</code>（鼠标点击不显示）</td></tr>
+              <tr><td>跳转链接</td><td><code>.ui-skip-link</code>，Tab 首项即到主内容</td></tr>
+              <tr><td>焦点陷阱</td><td>弹窗内 Tab 循环，关闭后焦点归还触发元素</td></tr>
+              <tr><td>语义结构</td><td>弹窗 <code>role="dialog" aria-modal</code>，实时区 <code>aria-live="polite"</code></td></tr>
+              <tr><td>装饰性元素</td><td>骨架屏、分隔点标记 <code>aria-hidden</code>，不污染读屏</td></tr>
+              <tr><td>减少动效</td><td><code>prefers-reduced-motion</code> 下所有动画降至 80ms</td></tr>
+              <tr><td>强制颜色</td><td><code>forced-colors</code> 下移除阴影，避免与系统配色冲突</td></tr>
+              <tr><td>视觉隐藏</td><td><code>.ui-hidden</code> 保留在无障碍树中，<code>.ui-invisible</code> 移除</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- 演示弹窗 -->
+<div class="ui-modal" id="sgModal" data-open="false" role="dialog" aria-modal="true" aria-labelledby="sgModalTitle">
+  <div class="ui-modal__panel ui-modal__panel--narrow">
+    <div class="ui-modal__header">
+      <div class="ui-modal__heading">
+        <h2 class="ui-modal__title" id="sgModalTitle">弹窗标题</h2>
+        <p class="ui-modal__subtitle">副标题：说明当前上下文</p>
+      </div>
+      <button class="ui-icon-button ui-icon-button--borderless" id="sgModalClose" aria-label="关闭">×</button>
+    </div>
+    <div class="ui-modal__body">
+      <p class="ui-prose">
+        弹窗内容区。头部 sticky，长内容滚动时标题与关闭按钮始终可见。
+        按 Esc 或点击遮罩关闭，Tab 键焦点在弹窗内循环。
+      </p>
+      <div class="ui-alert ui-alert--info ui-mt-4">
+        <span class="ui-alert__icon" aria-hidden="true">ℹ</span>
+        <div class="ui-alert__content">焦点陷阱已启用：连续按 Tab 不会跳到弹窗外。</div>
+      </div>
+    </div>
+    <div class="ui-modal__footer">
+      <button class="ui-button ui-button--secondary" id="sgModalCancel">取消</button>
+      <button class="ui-button ui-button--primary">确定</button>
+    </div>
+  </div>
+</div>
+
+<div class="ui-toast" id="sgToast" role="status" aria-live="polite" data-visible="false">已复制到剪贴板</div>
+
+<script type="module" src="src/styleguide.js"></script>
+</body>
+</html>

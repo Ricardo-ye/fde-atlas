@@ -1,0 +1,22 @@
+{
+  "name": "fde-atlas",
+  "version": "0.2.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "description": "�ɼ������ɺ˶ԡ���Ǩ�Ƶ���ҵ AI ��ذ����⡣����������̬վ�㽻����",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "validate": "node scripts/validate.mjs",
+    "build": "npm run validate && node scripts/build.mjs",
+    "check:page": "node --experimental-vm-modules scripts/check-page.mjs && node scripts/check-ui.mjs",
+    "test": "node tests/suite.mjs",
+    "test:browser": "node scripts/run-browser-tests.mjs",
+    "screenshot": "node scripts/screenshot.mjs",
+    "ci": "npm run build && npm run test && npm run check:page && npm run test:browser",
+    "start": "node scripts/serve.mjs",
+    "build:pages": "npm run build && node scripts/package-pages.mjs"
+  }
+}

@@ -1,0 +1,232 @@
+/*
+ * Base �㣺reset ��ȫ���Ű档
+ *
+ * Ŀ�꣺�������Ĭ����ʽ���첻��Ӱ����Ⱦ��Ϊ�ϲ�����ṩȷ������㡣
+ * ��㲻Ӧ�ó����κ����ѡ������
+ */
+
+/* ---------- reset ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  /* ê����תʱ���̶������������ռ䣬�������ᱻ��ס */
+  scroll-padding-top: calc(var(--p-control-height-lg) + var(--p-space-6));
+}
+
+body {
+  font-family: var(--p-font-sans);
+  font-size: var(--p-font-size-base);
+  line-height: var(--p-line-height-normal);
+  color: var(--semantic-text-primary);
+  background-color: var(--semantic-bg-canvas);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  min-height: 100vh;
+}
+
+/* ����Ԫ��Ĭ�ϼ̳����壬��������ؼ��ڲ�ͬϵͳ�����岻һ�� */
+button,
+input,
+select,
+textarea,
+optgroup {
+  font: inherit;
+  color: inherit;
+  margin: 0;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+a {
+  color: var(--semantic-text-link);
+  text-decoration: none;
+  transition: color var(--p-duration-fast) var(--p-ease-standard);
+}
+
+a:hover {
+  color: var(--semantic-text-link-hover);
+  text-decoration: underline;
+}
+
+/* ����Ĭ�ϼ̳��������иߣ�����������Ĭ�� margin ���� */
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: var(--p-line-height-tight);
+  letter-spacing: var(--p-letter-spacing-tight);
+}
+
+ul, ol {
+  padding: 0;
+  list-style: none;
+}
+
+img, svg, video, canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* ---------- ����ɼ��� ----------
+   ֻ�ڼ��̵���ʱ��ʾ���㻷�����������ʾ�����Ա����ɷ����ԡ�
+   ʹ�� :focus-visible ���� :focus��������������ֶ��������� */
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: var(--p-border-width-2) solid var(--semantic-border-focus);
+  outline-offset: var(--p-border-width-2);
+  border-radius: var(--p-radius-xs);
+}
+
+/* ---------- ����Ԫ��Ĭ����ʽͳһ ---------- */
+
+input,
+select,
+textarea {
+  background-color: var(--semantic-bg-surface);
+  border: var(--p-border-width-1) solid var(--semantic-border-default);
+  border-radius: var(--p-radius-sm);
+  color: var(--semantic-text-primary);
+  padding: var(--p-space-2) var(--p-space-3);
+  transition:
+    border-color var(--p-duration-fast) var(--p-ease-standard),
+    box-shadow var(--p-duration-fast) var(--p-ease-standard);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--semantic-text-tertiary);
+  opacity: 1; /* Firefox Ĭ�Ͻ��� placeholder ��͸���� */
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  border-color: var(--semantic-border-focus);
+  box-shadow: 0 0 0 var(--p-border-width-3) var(--semantic-accent-subtle-bg);
+}
+
+/* ����̬����ֻ�Ǳ�ң���Ҫ�� not-allowed �����ͶԱ� */
+input:disabled,
+select:disabled,
+textarea:disabled {
+  background-color: var(--semantic-bg-sunken);
+  color: var(--semantic-text-disabled);
+  cursor: not-allowed;
+}
+
+/* �������������¼�ͷ�ڲ����������ռλ���ƻ����� */
+input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+/* �������ԭ�������ť���Զ��������ť�ظ� */
+input[type="search"]::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+/* ---------- ������ ---------- */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--semantic-border-default) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: var(--p-space-3);
+  height: var(--p-space-3);
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--semantic-border-default);
+  border-radius: var(--p-radius-full);
+  border: var(--p-border-width-2) solid transparent;
+  background-clip: content-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--semantic-border-strong);
+}
+
+/* ---------- ѡ���ı� ---------- */
+
+::selection {
+  background-color: var(--semantic-accent-subtle-bg);
+  color: var(--semantic-text-primary);
+}
+
+/* ---------- ���ϰ������ؼ��ٶ�Чƫ�� ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: var(--p-duration-instant) !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: var(--p-duration-instant) !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- ��ӡ ---------- */
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #000 !important;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: var(--p-font-size-xs);
+    color: #555;
+  }
+}

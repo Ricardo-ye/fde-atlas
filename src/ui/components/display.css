@@ -1,0 +1,427 @@
+/*
+ * չʾ�������Badge / Tag / Card / Stat / Empty / Skeleton / Tooltip / Toast��
+ *
+ * �������ֻ����"������Ϣ"����������״̬�������� Toast ���Զ���ʧ����
+ */
+
+/* ==========================================================================
+   Badge ���� ״̬��ּ���ʶ
+   ========================================================================== */
+
+.ui-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--p-space-1);
+  padding: 0 var(--p-space-2);
+  border: var(--p-border-width-1) solid var(--semantic-border-default);
+  border-radius: var(--p-radius-full);
+  background-color: var(--semantic-bg-sunken);
+  color: var(--semantic-text-secondary);
+  font-size: var(--p-font-size-xs);
+  font-weight: var(--p-font-weight-semibold);
+  line-height: 1.7;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+/* ---------- ������tone��----------
+   tone ����"������´���ʲô"��������"����ʲô��"��
+   ��������һ������ֻ��Ҫ����һ�� --semantic-*������д����ʽ���� */
+
+.ui-badge--neutral {
+  color: var(--semantic-grade-neutral);
+  border-color: color-mix(in srgb, var(--semantic-grade-neutral) 34%, transparent);
+  background-color: color-mix(in srgb, var(--semantic-grade-neutral) 10%, transparent);
+}
+
+.ui-badge--accent {
+  color: var(--semantic-accent-subtle-text);
+  border-color: var(--semantic-accent-border);
+  background-color: var(--semantic-accent-subtle-bg);
+}
+
+.ui-badge--success {
+  color: var(--semantic-success-subtle-text);
+  border-color: color-mix(in srgb, var(--semantic-success-bg) 34%, transparent);
+  background-color: var(--semantic-success-subtle-bg);
+}
+
+.ui-badge--warning {
+  color: var(--semantic-warning-subtle-text);
+  border-color: color-mix(in srgb, var(--semantic-warning-bg) 34%, transparent);
+  background-color: var(--semantic-warning-subtle-bg);
+}
+
+.ui-badge--danger {
+  color: var(--semantic-danger-subtle-text);
+  border-color: color-mix(in srgb, var(--semantic-danger-bg) 34%, transparent);
+  background-color: var(--semantic-danger-subtle-bg);
+}
+
+/* ---------- �ּ�ר�� ----------
+   ֤�ݵȼ�����ϸ�ȶ���"�� A �� D / ���ǳ"��˳���ͱ�ʶ��
+   ��ͬһ�� grade ɫ������֤�Ӿ�����һ�¡� */
+
+.ui-badge--grade-a {
+  color: var(--semantic-grade-a);
+  border-color: color-mix(in srgb, var(--semantic-grade-a) 36%, transparent);
+  background-color: var(--semantic-grade-a-bg);
+}
+
+.ui-badge--grade-b {
+  color: var(--semantic-grade-b);
+  border-color: color-mix(in srgb, var(--semantic-grade-b) 36%, transparent);
+  background-color: var(--semantic-grade-b-bg);
+}
+
+.ui-badge--grade-c {
+  color: var(--semantic-grade-c);
+  border-color: color-mix(in srgb, var(--semantic-grade-c) 36%, transparent);
+  background-color: var(--semantic-grade-c-bg);
+}
+
+.ui-badge--grade-d {
+  color: var(--semantic-grade-d);
+  border-color: color-mix(in srgb, var(--semantic-grade-d) 36%, transparent);
+  background-color: var(--semantic-grade-d-bg);
+}
+
+.ui-badge--dot::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: var(--p-radius-full);
+  background-color: currentcolor;
+}
+
+.ui-badge--sm {
+  padding: 0 var(--p-space-1);
+  font-size: 10px;
+}
+
+.ui-badge--lg {
+  padding: 0 var(--p-space-3);
+  font-size: var(--p-font-size-sm);
+}
+
+/* ==========================================================================
+   Tag ���� �ɽ�����ǩ��ɸѡ chip��
+   ========================================================================== */
+
+.ui-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--p-space-1);
+  height: var(--p-control-height-sm);
+  padding: 0 var(--p-space-3);
+  border: var(--p-border-width-1) solid var(--semantic-border-subtle);
+  border-radius: var(--p-radius-full);
+  background-color: var(--semantic-bg-sunken);
+  color: var(--semantic-text-secondary);
+  font-size: var(--p-font-size-sm);
+  white-space: nowrap;
+}
+
+.ui-tag--interactive {
+  cursor: pointer;
+  transition:
+    background-color var(--p-duration-fast) var(--p-ease-standard),
+    border-color var(--p-duration-fast) var(--p-ease-standard),
+    color var(--p-duration-fast) var(--p-ease-standard);
+}
+
+.ui-tag--interactive:hover {
+  background-color: var(--semantic-hover-bg);
+  border-color: var(--semantic-border-strong);
+  color: var(--semantic-text-primary);
+}
+
+.ui-tag--selected {
+  background-color: var(--semantic-accent-subtle-bg);
+  border-color: var(--semantic-accent-border);
+  color: var(--semantic-accent-subtle-text);
+  font-weight: var(--p-font-weight-medium);
+}
+
+.ui-tag__remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--p-space-4);
+  height: var(--p-space-4);
+  margin-right: calc(var(--p-space-1) * -1);
+  border: none;
+  border-radius: var(--p-radius-full);
+  background: transparent;
+  color: currentcolor;
+  font-size: var(--p-font-size-xs);
+  opacity: 0.65;
+}
+
+.ui-tag__remove:hover {
+  opacity: 1;
+  background-color: var(--semantic-active-bg);
+}
+
+/* ==========================================================================
+   Card
+   ========================================================================== */
+
+.ui-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--p-space-3);
+  padding: var(--p-space-4);
+  border: var(--p-border-width-1) solid var(--semantic-border-subtle);
+  border-radius: var(--p-radius-lg);
+  background-color: var(--semantic-bg-surface);
+  box-shadow: var(--semantic-shadow-xs);
+  transition:
+    border-color var(--p-duration-fast) var(--p-ease-standard),
+    box-shadow var(--p-duration-base) var(--p-ease-standard),
+    transform var(--p-duration-fast) var(--p-ease-standard);
+}
+
+.ui-card--interactive {
+  cursor: pointer;
+}
+
+.ui-card--interactive:hover {
+  border-color: var(--semantic-border-strong);
+  box-shadow: var(--semantic-shadow-md);
+  transform: translateY(calc(var(--p-border-width-1) * -1));
+}
+
+.ui-card--interactive:active {
+  transform: translateY(0);
+  box-shadow: var(--semantic-shadow-xs);
+}
+
+.ui-card--flush {
+  padding: 0;
+}
+
+.ui-card__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--p-space-2);
+}
+
+.ui-card__title {
+  font-size: var(--p-font-size-lg);
+  font-weight: var(--p-font-weight-semibold);
+  color: var(--semantic-text-primary);
+}
+
+.ui-card__subtitle {
+  font-size: var(--p-font-size-md);
+  color: var(--semantic-text-secondary);
+  line-height: var(--p-line-height-normal);
+}
+
+.ui-card__body {
+  font-size: var(--p-font-size-md);
+  color: var(--semantic-text-secondary);
+  line-height: var(--p-line-height-relaxed);
+}
+
+.ui-card__footer {
+  display: flex;
+  align-items: center;
+  gap: var(--p-space-3);
+  margin-top: auto;
+  padding-top: var(--p-space-2);
+}
+
+/* �ı��ضϣ���ƬժҪ�ã����ⳤ�����ݵ��¿�Ƭ�߶Ȳβ� */
+.ui-card__clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Stat ���� ����ͳ������
+   ========================================================================== */
+
+.ui-stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--p-space-1);
+}
+
+.ui-stat__value {
+  font-size: var(--p-font-size-2xl);
+  font-weight: var(--p-font-weight-bold);
+  line-height: var(--p-line-height-tight);
+  letter-spacing: var(--p-letter-spacing-tight);
+  color: var(--semantic-text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.ui-stat__label {
+  font-size: var(--p-font-size-sm);
+  color: var(--semantic-text-tertiary);
+}
+
+.ui-stat__delta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--p-space-1);
+  font-size: var(--p-font-size-sm);
+  font-weight: var(--p-font-weight-medium);
+  font-variant-numeric: tabular-nums;
+}
+
+.ui-stat__delta--up { color: var(--semantic-success-subtle-text); }
+.ui-stat__delta--down { color: var(--semantic-danger-subtle-text); }
+
+/* ==========================================================================
+   Empty ���� ��״̬
+   ========================================================================== */
+
+.ui-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--p-space-2);
+  padding: var(--p-space-8) var(--p-space-4);
+  border: var(--p-border-width-1) dashed var(--semantic-border-strong);
+  border-radius: var(--p-radius-lg);
+  text-align: center;
+}
+
+.ui-empty__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--p-space-7);
+  height: var(--p-space-7);
+  margin-bottom: var(--p-space-2);
+  border-radius: var(--p-radius-full);
+  background-color: var(--semantic-bg-sunken);
+  color: var(--semantic-text-tertiary);
+  font-size: var(--p-font-size-xl);
+}
+
+.ui-empty__title {
+  font-size: var(--p-font-size-lg);
+  font-weight: var(--p-font-weight-semibold);
+  color: var(--semantic-text-primary);
+}
+
+.ui-empty__hint {
+  max-width: 44ch;
+  font-size: var(--p-font-size-md);
+  color: var(--semantic-text-tertiary);
+  line-height: var(--p-line-height-relaxed);
+}
+
+/* ==========================================================================
+   Skeleton ���� ����ռλ
+   ========================================================================== */
+
+.ui-skeleton {
+  border-radius: var(--p-radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--semantic-bg-sunken) 25%,
+    var(--semantic-hover-bg) 37%,
+    var(--semantic-bg-sunken) 63%
+  );
+  background-size: 400% 100%;
+  animation: ui-skeleton-shimmer 1.4s ease-in-out infinite;
+}
+
+.ui-skeleton--text { height: var(--p-space-3); }
+.ui-skeleton--title { height: var(--p-space-5); }
+.ui-skeleton--badge { height: var(--p-space-4); }
+.ui-skeleton--block { height: var(--p-space-8); }
+.ui-skeleton--circle { border-radius: var(--p-radius-full); }
+
+@keyframes ui-skeleton-shimmer {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-skeleton {
+    animation: none;
+    background: var(--semantic-bg-sunken);
+  }
+}
+
+/* ==========================================================================
+   Toast ���� ����ʾ
+   ========================================================================== */
+
+.ui-toast {
+  position: fixed;
+  left: 50%;
+  bottom: var(--p-space-6);
+  z-index: var(--p-z-toast);
+  display: flex;
+  align-items: center;
+  gap: var(--p-space-2);
+  padding: var(--p-space-3) var(--p-space-4);
+  border-radius: var(--p-radius-full);
+  background-color: var(--semantic-text-primary);
+  color: var(--semantic-bg-canvas);
+  font-size: var(--p-font-size-md);
+  font-weight: var(--p-font-weight-medium);
+  box-shadow: var(--semantic-shadow-lg);
+  transform: translate(-50%, var(--p-space-3));
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--p-duration-base) var(--p-ease-decelerate),
+    transform var(--p-duration-base) var(--p-ease-emphasized);
+}
+
+.ui-toast[data-visible="true"] {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.ui-toast__icon {
+  display: inline-flex;
+  font-size: var(--p-font-size-md);
+}
+
+/* ==========================================================================
+   Tooltip ���� �� CSS ��ʾ
+   ========================================================================== */
+
+.ui-tooltip {
+  position: relative;
+}
+
+.ui-tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + var(--p-space-2));
+  left: 50%;
+  z-index: var(--p-z-tooltip);
+  padding: var(--p-space-1) var(--p-space-2);
+  border-radius: var(--p-radius-sm);
+  background-color: var(--semantic-text-primary);
+  color: var(--semantic-bg-canvas);
+  font-size: var(--p-font-size-xs);
+  line-height: 1.6;
+  white-space: nowrap;
+  transform: translateX(-50%) translateY(var(--p-space-1));
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--p-duration-fast) var(--p-ease-standard),
+    transform var(--p-duration-fast) var(--p-ease-standard);
+}
+
+.ui-tooltip:hover::after,
+.ui-tooltip:focus-visible::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
