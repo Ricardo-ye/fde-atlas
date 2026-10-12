@@ -1,19 +1,19 @@
 /*
- * Semantic ���Ʋ� ���� ����"��;"��������"��ʲô��ɫʵ��"��
+ * Semantic 令牌层 —— 描述"用途"，不描述"用什么颜色实现"。
  *
- * �����ʽֻ�������� --semantic-*��������ֱ������ --p-*��primitive����
- * ���������� = ֻ�ı��ļ��������κ������
+ * 组件样式只允许引用 --semantic-*，不允许直接引用 --p-*（primitive）。
+ * 这样换主题 = 只改本文件，不碰任何组件。
  *
- * �������⣺light / dark / contrast���߶Աȶȣ���
- * contrast ����������û���ǿ�⻷����ȥ�����еͶԱȶȵ��м����
- * �߿���ء������뱳���ﵽ���Աȡ�
+ * 四套主题：light / dark / contrast（高对比度）。
+ * contrast 面向低视力用户与强光环境：去掉所有低对比度的中间调，
+ * 边框加重、正文与背景达到最大对比。
  */
 
 :root,
 :root[data-theme="light"] {
   color-scheme: light;
 
-  /* ---- ���� ---- */
+  /* ---- 背景 ---- */
   --semantic-bg-canvas: var(--p-neutral-50);
   --semantic-bg-surface: var(--p-neutral-0);
   --semantic-bg-raised: var(--p-neutral-0);
@@ -21,7 +21,7 @@
   --semantic-bg-overlay: rgba(13, 17, 23, 0.45);
   --semantic-bg-scrim: rgba(255, 255, 255, 0.82);
 
-  /* ---- �ı� ---- */
+  /* ---- 文本 ---- */
   --semantic-text-primary: var(--p-neutral-900);
   --semantic-text-secondary: var(--p-neutral-600);
   --semantic-text-tertiary: var(--p-neutral-500);
@@ -30,13 +30,13 @@
   --semantic-text-link: var(--p-blue-700);
   --semantic-text-link-hover: var(--p-blue-800);
 
-  /* ---- �߿� ---- */
+  /* ---- 边框 ---- */
   --semantic-border-subtle: var(--p-neutral-200);
   --semantic-border-default: var(--p-neutral-300);
   --semantic-border-strong: var(--p-neutral-400);
   --semantic-border-focus: var(--p-blue-600);
 
-  /* ---- ��ɫ ---- */
+  /* ---- 主色 ---- */
   --semantic-accent-bg: var(--p-blue-600);
   --semantic-accent-bg-hover: var(--p-blue-700);
   --semantic-accent-bg-active: var(--p-blue-800);
@@ -45,7 +45,7 @@
   --semantic-accent-subtle-text: var(--p-blue-700);
   --semantic-accent-border: var(--p-blue-300);
 
-  /* ---- ״̬ɫ ---- */
+  /* ---- 状态色 ---- */
   --semantic-success-bg: var(--p-green-600);
   --semantic-success-subtle-bg: var(--p-green-50);
   --semantic-success-subtle-text: var(--p-green-700);
@@ -59,13 +59,13 @@
   --semantic-info-subtle-bg: var(--p-cyan-50);
   --semantic-info-subtle-text: var(--p-cyan-700);
 
-  /* ---- ����̬ ---- */
+  /* ---- 交互态 ---- */
   --semantic-hover-bg: rgba(16, 24, 40, 0.045);
   --semantic-active-bg: rgba(16, 24, 40, 0.075);
   --semantic-selected-bg: var(--p-blue-50);
 
-  /* ---- �ּ�ר��ɫ��֤�ݵȼ� / ��ϸ�ȣ� ----
-     ����ɫֻ������"�ּ�չʾ"��������ͨ��״̬���� */
+  /* ---- 分级专用色（证据等级 / 详细度） ----
+     这组色只服务于"分级展示"，不参与通用状态语义 */
   --semantic-grade-a: var(--p-green-600);
   --semantic-grade-b: var(--p-blue-600);
   --semantic-grade-c: var(--p-amber-600);
@@ -76,7 +76,7 @@
   --semantic-grade-c-bg: var(--p-amber-50);
   --semantic-grade-d-bg: var(--p-violet-50);
 
-  /* ---- ��Ӱ����ɫ�������ø��ص���Ӱ�����θ� ---- */
+  /* ---- 阴影：深色主题下用更重的阴影补足层次感 ---- */
   --semantic-shadow-xs: var(--p-shadow-xs);
   --semantic-shadow-sm: var(--p-shadow-sm);
   --semantic-shadow-md: var(--p-shadow-md);
@@ -144,7 +144,7 @@
   --semantic-grade-c-bg: rgba(217, 138, 0, 0.14);
   --semantic-grade-d-bg: rgba(124, 86, 232, 0.14);
 
-  /* ��ɫ�������Ӱ�ú�ɫ�����ӣ�������ģ������ */
+  /* 深色主题的阴影用黑色多层叠加，而不是模糊更大 */
   --semantic-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
   --semantic-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.45), 0 1px 2px rgba(0, 0, 0, 0.3);
   --semantic-shadow-md: 0 4px 10px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.35);
@@ -155,11 +155,11 @@
 }
 
 /*
- * �߶Աȶ����⡣
+ * 高对比度主题。
  *
- * Ŀ�겻��"���ÿ�"������ WCAG AAA�����ĶԱ� ��7:1����
- * �ؼ�������ȥ������ rgba ��͸�����ӣ����ǻή����Ч�Աȶȣ���
- * �߿�Ӵֵ� 2px ������ǿ����ɫ����������˵�ɫ�ס�
+ * 目标不是"更好看"，而是 WCAG AAA（正文对比 ≥7:1）。
+ * 关键动作：去掉所有 rgba 半透明叠加（它们会降低有效对比度），
+ * 边框加粗到 2px 并用最强中性色，正文用最极端的色阶。
  */
 :root[data-theme="contrast"] {
   color-scheme: light;
@@ -205,7 +205,7 @@
   --semantic-info-subtle-bg: var(--p-cyan-100);
   --semantic-info-subtle-text: var(--p-cyan-900);
 
-  /* ��̬ͣ��"�߿� + ����"���Ǳ���ɫ�仯����Ϊ�����仯�ڸ߶Ա��²��ײ�� */
+  /* 悬停态用"边框 + 加重"而非背景色变化，因为背景变化在高对比下不易察觉 */
   --semantic-hover-bg: var(--p-neutral-100);
   --semantic-active-bg: var(--p-neutral-200);
   --semantic-selected-bg: var(--p-blue-100);
@@ -220,7 +220,7 @@
   --semantic-grade-c-bg: var(--p-amber-100);
   --semantic-grade-d-bg: var(--p-violet-100);
 
-  /* �߶Ա�����"Ӳ�߿�"������Ӱ�������� ���� ��Ӱ�ڴ����ϼ������ɼ� */
+  /* 高对比下用"硬边框"代替阴影来表达层次 —— 阴影在纯白上几乎不可见 */
   --semantic-shadow-xs: none;
   --semantic-shadow-sm: none;
   --semantic-shadow-md: none;
@@ -231,9 +231,9 @@
 }
 
 /*
- * ���ϰ���ǿ�Ƹ߶Աȡ�
- * ĳЩϵͳ��Windows �߶Աȶ�ģʽ�������� forced-colors��
- * ��ʱӦ��������ӹ���ɫ�����������ص�����ɫ������ϵͳ���ó�ͻ��
+ * 无障碍：强制高对比。
+ * 某些系统（Windows 高对比度模式）会设置 forced-colors，
+ * 此时应让浏览器接管配色，我们主动关掉背景色以免与系统设置冲突。
  */
 @media (forced-colors: active) {
   :root {

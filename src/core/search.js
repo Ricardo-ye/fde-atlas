@@ -1,13 +1,13 @@
 /**
- * ����������ɸѡ ���� ���������� DOM ������
+ * 搜索索引与筛选 —— 纯函数，无 DOM 依赖。
  *
- * ������������ô���
- *   1. ���������Ⱦʱ����Ϊÿ�ΰ�������ƴ��ȫ�ģ�����ÿ�� render ���������ֶ�
- *      join һ�Σ�127 �� ��ÿ�ΰ��� = �ɹ۵��ظ��ַ������䣩��
- *   2. �߼����� Node ��ֱ�Ӷ��ԣ����Բ������������
+ * 抽出来有两个好处：
+ *   1. 浏览器端渲染时不再为每次按键重新拼接全文（上游每次 render 都把所有字段
+ *      join 一次，127 条 ×每次按键 = 可观的重复字符串分配）；
+ *   2. 逻辑可在 Node 里直接断言，测试不依赖浏览器。
  */
 
-/** Ĭ��ɸѡ״̬�� */
+/** 默认筛选状态。 */
 export const DEFAULT_FILTERS = Object.freeze({
   search: '',
   detailLevel: '',
@@ -20,12 +20,12 @@ export const DEFAULT_FILTERS = Object.freeze({
 });
 
 /**
- * ��һ�� detail �ṹ��
+ * 归一化 detail 结构。
  *
- * ������Դ���ֶ�����ͬ������������ͳһ����������ɸѡ����
- * "�����õ����������"��"������õĹ�������"֮�������Ϊ���죺
- *   - calculateDetail() �����{ detail_score, detail_level, detail_dimensions, missing_details }
- *   - dist/atlas.data.js �У�{ score, level, dimensions, missing }
+ * 两种来源的字段名不同，必须在这里统一，否则下游筛选会在
+ * "单测用的评分器输出"和"浏览器用的构建产物"之间出现行为差异：
+ *   - calculateDetail() 输出：{ detail_score, detail_level, detail_dimensions, missing_details }
+ *   - dist/atlas.data.js 中：{ score, level, dimensions, missing }
  */
 const normalizeDetail = (record) => {
   const raw = record.detail ?? record;
@@ -38,8 +38,8 @@ const normalizeDetail = (record) => {
 };
 
 /**
- * Ԥ������������ÿ������Ԥ��ƴ��һ��Сд���ļ����ı���
- * @param {Array<object>} records �ɴ� detail �ֶΣ�Ҳ��ֱ���� calculateDetail �����
+ * 预建搜索索引：每条案例预先拼好一份小写化的检索文本。
+ * @param {Array<object>} records 可带 detail 字段，也可直接是 calculateDetail 的输出
  * @returns {Array<{record: object, detail: object, haystack: string}>}
  */
 export const buildIndex = (records) =>
@@ -53,10 +53,10 @@ export const buildIndex = (records) =>
   });
 
 /**
- * ƴ�Ӽ����ı���
+ * 拼接检索文本。
  *
- * ��ɶ���������Ϊ��֧�ֲַ����ݣ�core ��ֻ�п�Ƭ�ֶΣ�
- * �����㵽������� enrichIndex ��ȫ haystack ���� �����������صȼ����㡣
+ * 拆成独立函数是为了支持分层数据：core 层只有卡片字段，
+ * 检索层到达后再用 enrichIndex 补全 haystack —— 这样首屏不必等检索层。
  */
 const joinHaystack = (record) => [
   record.company, record.industry, record.industry_group, record.scenario,
@@ -69,14 +69,14 @@ const joinHaystack = (record) => [
 ].filter(Boolean).join(' ').toLowerCase();
 
 /**
- * �ü��������ݲ�ȫ������ haystack��
+ * 用检索层数据补全索引的 haystack。
  *
- * �ֲ���������Ǳ���ģ�core ���Ƚ�������֤��Ƭ���ã�
- * �����㵽λ����ñ���������Ϊȫ���������û������޸С�
+ * 分层加载下这是必需的：core 层先建索引保证卡片可用，
+ * 检索层到位后调用本函数升级为全文索引，用户几乎无感。
  *
  * @param {Array<{record: object, detail: object, haystack: string}>} index
- * @param {{ids: string[], fields: object[]}} payload ���������
- * @returns {number} ����ȫ������
+ * @param {{ids: string[], fields: object[]}} payload 检索层产物
+ * @returns {number} 被补全的条数
  */
 export const enrichIndex = (index, payload) => {
   if (!payload?.ids || !Array.isArray(payload.fields)) return 0;
@@ -93,13 +93,13 @@ export const enrichIndex = (index, payload) => {
   return enriched;
 };
 
-/** ĳ��ɸѡ�ֶ��Ƿ���Ч�����ַ��� / false ��Ϊ��ɸѡ�� */
+/** 某条筛选字段是否生效。空字符串 / false 视为不筛选。 */
 const active = (value) => value !== '' && value !== false && value !== null && value !== undefined;
 
 /**
- * Ӧ��ɸѡ��
- * �������֮���� AND���������ϸ�Ƚ���ͬ�ְ� id ���� ���� ��֤��ҳ��
- * "��һ������"�������κ�����˳���¶��ȶ��ɸ��֡�
+ * 应用筛选。
+ * 多个条件之间是 AND；结果按详细度降序、同分按 id 升序 —— 保证翻页与
+ * "下一个案例"导航在任何数据顺序下都稳定可复现。
  */
 export const applyFilters = (index, filters) => {
   const f = { ...DEFAULT_FILTERS, ...filters };
@@ -118,17 +118,17 @@ export const applyFilters = (index, filters) => {
   });
 
   return hits.sort((a, b) => (
-    // ������ detail.score��normalizeDetail ���������
-    // ������ detail.detail_score ���� ���� calculateDetail �ľ��ֶ�����
-    // д�����÷������� NaN��NaN || x ���� fallback��
-    // �������Ĭ�˻�Ϊ"ֻ�� id ��"��
+    // 必须用 detail.score（normalizeDetail 的输出），
+    // 不能用 detail.detail_score —— 那是 calculateDetail 的旧字段名，
+    // 写错会让分数差变成 NaN，NaN || x 恒走 fallback，
+    // 结果排序静默退化为"只按 id 排"。
     b.detail.score - a.detail.score
     || a.record.id.localeCompare(b.record.id)
   ));
 };
 
 /**
- * ����ͳ�ƣ���ɸѡ������ѡ���������
+ * 分面统计：给筛选器生成选项与计数。
  * @param {Array<object>} records
  */
 export const getFacets = (records) => {
@@ -148,7 +148,7 @@ export const getFacets = (records) => {
   };
 };
 
-/** ͳ������õĻ������֡� */
+/** 统计面板用的汇总数字。 */
 export const getSummary = (records) => ({
   total: records.length,
   technical: records.filter((c) => c.technical_reference === true).length,

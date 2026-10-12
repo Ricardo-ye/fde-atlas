@@ -19,13 +19,13 @@ export const en = {
   'nav.theme.light': 'Light',
   'nav.theme.dark': 'Dark',
   'nav.theme.contrast': 'High contrast',
-  'nav.lang': '����',
-  'nav.langAria': '�л�������',
+  'nav.lang': '中文',
+  'nav.langAria': '切换到中文',
 
   'hero.kicker': 'FDE ATLAS',
   'hero.title': 'Enterprise AI Deployment Atlas',
-  'hero.lead': 'Not just which model was used, but the full chain wherever public evidence allows: operating problem �� field discovery �� technical workflow �� human accountability �� rollout �� outcome �� reusable lessons.',
-  'hero.stats': '{total} cases �� {deep} deep �� {technical} technical references',
+  'hero.lead': 'Not just which model was used, but the full chain wherever public evidence allows: operating problem → field discovery → technical workflow → human accountability → rollout → outcome → reusable lessons.',
+  'hero.stats': '{total} cases · {deep} deep · {technical} technical references',
 
   'filter.search': 'Search company, industry, workflow, architecture, or technology',
   'filter.searchHint': 'Search company, industry, scenario (full-text loads as you type)',
@@ -71,7 +71,7 @@ export const en = {
   'result.showing': 'Showing {shown} / {total}',
   'result.empty': 'No matching cases',
   'result.emptyHint': 'Try removing filters, changing the query, or resetting all filters.',
-  'result.loading': 'Loading cases��',
+  'result.loading': 'Loading cases…',
   'result.error': 'Failed to load data. Retry, or confirm the dist data files are reachable and run npm run build.',
 
   'modal.problem': 'Business problem',

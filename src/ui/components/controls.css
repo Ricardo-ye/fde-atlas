@@ -1,11 +1,11 @@
 /*
- * ԭ�������Button / IconButton / Input / Select / Checkbox / Radio / Switch��
+ * 原子组件：Button / IconButton / Input / Select / Checkbox / Radio / Switch。
  *
- * Լ����
- *   1. ����һ�� BEM��.ui-button--primary�������ù�������� ����
- *      ������ڲ��ṹ��ʵ��ϸ�ڣ�������ҵ������ﱻ��д��
- *   2. ÿ���������֧�� size��sm/md/lg����variant��״̬��hover/active/focus/disabled����
- *   3. ���н���̬�� CSS �������ƣ����������л���
+ * 约定：
+ *   1. 类名一律 BEM（.ui-button--primary），不用工具类组合 ——
+ *      组件的内部结构是实现细节，不该在业务代码里被覆写；
+ *   2. 每个组件至少支持 size（sm/md/lg）、variant、状态（hover/active/focus/disabled）；
+ *   3. 所有交互态用 CSS 变量控制，便于主题切换。
  */
 
 /* ==========================================================================
@@ -39,7 +39,7 @@
   text-decoration: none;
 }
 
-/* ����ʱ��λ�Ʒ�������ť��Ҫ��"������"�������� */
+/* 按下时的位移反馈：按钮需要有"被按下"的物理感 */
 .ui-button:active:not(:disabled) {
   transform: translateY(var(--p-border-width-1));
 }
@@ -136,7 +136,7 @@
   width: 100%;
 }
 
-/* ---------- ״̬ ---------- */
+/* ---------- 状态 ---------- */
 
 .ui-button:disabled,
 .ui-button[aria-disabled="true"] {
@@ -173,7 +173,7 @@
 }
 
 /* ==========================================================================
-   IconButton ���� ֻ��ͼ��İ�ť�������� aria-label
+   IconButton —— 只有图标的按钮，必须有 aria-label
    ========================================================================== */
 
 .ui-icon-button {
@@ -225,7 +225,7 @@
 }
 
 /* ==========================================================================
-   Field ���� �����ֶ�������label + �ؼ� + ��ʾ/����
+   Field —— 表单字段容器（label + 控件 + 提示/错误）
    ========================================================================== */
 
 .ui-field {
@@ -287,7 +287,7 @@
   border-color: var(--semantic-danger-bg);
 }
 
-/* ������ǰ��ͼ�� + ��ѡ���������ť */
+/* 搜索框：前置图标 + 可选后置清除按钮 */
 .ui-search {
   position: relative;
   display: flex;
@@ -334,7 +334,7 @@
 }
 
 /* ==========================================================================
-   Select ���� ԭ�� select����֤�ƶ�������̿���
+   Select —— 原生 select，保证移动端与键盘可用
    ========================================================================== */
 
 .ui-select {
@@ -344,7 +344,7 @@
   font-size: var(--p-font-size-md);
   cursor: pointer;
   appearance: none;
-  /* �Ի�������ͷ���� SVG data URI ��������������ܸ��� currentColor */
+  /* 自绘下拉箭头：用 SVG data URI 避免额外请求，且能跟随 currentColor */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23888' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right var(--p-space-3) center;
@@ -361,7 +361,7 @@
   font-size: var(--p-font-size-base);
 }
 
-/* ��ɫ�����¼�ͷ��Ҫ���� */
+/* 深色主题下箭头需要更亮 */
 :root[data-theme="dark"] .ui-select {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23aaa' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
 }
@@ -410,7 +410,7 @@
 }
 
 .ui-checkbox__input:checked {
-  /* �� mask ������������� SVG ���� */
+  /* 用 mask 画勾，避免额外 SVG 请求 */
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 8.5l3.5 3.5L13 5'/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 8.5l3.5 3.5L13 5'/%3E%3C/svg%3E");
   -webkit-mask-size: 100%;
@@ -422,7 +422,7 @@
 }
 
 .ui-radio__input:checked {
-  /* ͬ��Բ�����ʵ���� + �ڲ�׵��� inset box-shadow ʵ�� */
+  /* 同心圆：外层实心蓝 + 内层白点用 inset box-shadow 实现 */
   box-shadow: inset 0 0 0 3px var(--semantic-bg-surface);
 }
 
@@ -438,7 +438,7 @@
 }
 
 /* ==========================================================================
-   Switch ���� ����
+   Switch —— 开关
    ========================================================================== */
 
 .ui-switch {

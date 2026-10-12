@@ -1,21 +1,21 @@
 #!/usr/bin/env node
 /**
- * ����������ʵ���� + �������ִ�������������ֲ���أ���
+ * 构建：把事实数据 + 派生评分打包成浏览器产物（分层加载）。
  *
- * ������ƣ�
- *   dist/atlas.stats.js      ͳ����Ϣ�������Թ��ã���С
- *   dist/atlas.core.js       �������� ���� ��Ƭ�ֶ� + case_summary + ����
- *   dist/atlas.search.zh.js  ������ ���� �û��״�����������ʱ����
- *   dist/atlas.detail.zh.js  ����� ���� �򿪵���ʱ�������
- *   dist/atlas.*.en.js       Ӣ�Ķ�Ӧ���㣬�л�����ʱ�ż���
+ * 产物设计：
+ *   dist/atlas.stats.js      统计信息，两语言共用，极小
+ *   dist/atlas.core.js       首屏必需 —— 卡片字段 + case_summary + 评分
+ *   dist/atlas.search.zh.js  检索层 —— 用户首次输入搜索词时加载
+ *   dist/atlas.detail.zh.js  详情层 —— 打开弹窗时按需加载
+ *   dist/atlas.*.en.js       英文对应三层，切换语言时才加载
  *
- * �ֲ�����ݣ�ʵ�� 127 ���������ݵ�����ֲ�����
- *   ��Ƭ�ֶ� 53KB + case_summary 21KB  = 74KB��ռȫ�� 18%���� ����ֻ����Щ
- *   �����ֶ� 216 KB��ռ 54%��           �� ֻ���������ʱ����Ҫ
- *   ����Ϊ�����ֶ�                      �� �����������
+ * 分层的依据（实测 127 条中文数据的体积分布）：
+ *   卡片字段 53KB + case_summary 21KB  = 74KB（占全量 18%）→ 首屏只需这些
+ *   搜索字段 216 KB（占 54%）           → 只在真的搜索时才需要
+ *   其余为详情字段                      → 按条随机访问
  *
- * ÿ�㶼�� .js �ҵ� window �����ռ���� .json��
- *   �ȱ���"����Ҫ����������"���ص㣬Ҳ���� fetch �� file:// �µ� CORS ���⡣
+ * 每层都用 .js 挂到 window 命名空间而非 .json：
+ *   既保留"不需要构建服务器"的特点，也避免 fetch 在 file:// 下的 CORS 问题。
  */
 
 import fs from 'node:fs';
@@ -45,14 +45,14 @@ const detailOf = (record) => {
   };
 };
 
-/** ������Ƭ����ı����ֶΡ� */
+/** 首屏卡片所需的标量字段。 */
 const CARD_FIELDS = [
   'id', 'company', 'industry', 'industry_group', 'scenario', 'source',
   'fde', 'fde_relation', 'maturity', 'maturity_stage', 'evidence_level',
   'url', 'technical_reference', 'case_summary',
 ];
 
-/** �������ֶΣ�ֻ���û�����������ʱ���ء� */
+/** 检索层字段：只在用户输入搜索词时加载。 */
 const SEARCH_FIELDS = [
   'problem', 'solution', 'architecture', 'components',
   'fde_actions', 'reusable', 'human', 'result', 'evidence',
@@ -71,7 +71,7 @@ const pickRest = (record) => {
 const built = [];
 const write = (name, comment, globalName, payload) => {
   fs.mkdirSync(path.join(root, 'dist'), { recursive: true });
-  const content = `/* �� scripts/build.mjs ���ɣ�${comment}���������ָġ�npm run build */\n`
+  const content = `/* 由 scripts/build.mjs 生成（${comment}），请勿手改。npm run build */\n`
     + `window.${globalName} = ${JSON.stringify(payload)};\n`;
   fs.writeFileSync(path.join(root, 'dist', name), content);
   const bytes = Buffer.byteLength(content, 'utf8');
@@ -79,7 +79,7 @@ const write = (name, comment, globalName, payload) => {
   return bytes;
 };
 
-write('atlas.stats.js', 'ͳ��', 'FDE_ATLAS_STATS', {
+write('atlas.stats.js', '统计', 'FDE_ATLAS_STATS', {
   version,
   total: zh.length,
   summary: {
@@ -98,7 +98,7 @@ for (const [locale, records, dirTable, suffix] of [
 ]) {
   const upper = locale.toUpperCase();
 
-  write(`atlas.core${suffix}.js`, `���� ${locale}`, `FDE_ATLAS_CORE${suffix ? '_EN' : ''}`, {
+  write(`atlas.core${suffix}.js`, `核心 ${locale}`, `FDE_ATLAS_CORE${suffix ? '_EN' : ''}`, {
     locale,
     version,
     dimensions: DIMENSIONS,
@@ -107,12 +107,12 @@ for (const [locale, records, dirTable, suffix] of [
     cases: records.map((record) => ({ ...pick(record, CARD_FIELDS), detail: detailOf(record) })),
   });
 
-  write(`atlas.search${suffix}.js`, `���� ${locale}`, `FDE_ATLAS_SEARCH_${upper}`, {
+  write(`atlas.search${suffix}.js`, `检索 ${locale}`, `FDE_ATLAS_SEARCH_${upper}`, {
     ids: records.map((r) => r.id),
     fields: records.map((record) => pick(record, SEARCH_FIELDS)),
   });
 
-  write(`atlas.detail${suffix}.js`, `���� ${locale}`, `FDE_ATLAS_DETAIL_${upper}`,
+  write(`atlas.detail${suffix}.js`, `详情 ${locale}`, `FDE_ATLAS_DETAIL_${upper}`,
     Object.fromEntries(records.map((record) => [record.id, pickRest(record)])));
 }
 
@@ -128,10 +128,10 @@ const kb = (bytes) => `${(bytes / 1024).toFixed(0)} KB`;
 const total = built.reduce((sum, [, size]) => sum + size, 0);
 const firstScreen = built.find(([name]) => name === 'atlas.core.js')[1];
 
-console.log('������ɣ��ֲ���أ���');
+console.log('构建完成（分层加载）：');
 for (const [name, size] of built) console.log(`  ${name.padEnd(24)} ${kb(size).padStart(8)}`);
-console.log(`  ${'�ϼ�'.padEnd(22)} ${kb(total).padStart(8)}`);
+console.log(`  ${'合计'.padEnd(22)} ${kb(total).padStart(8)}`);
 console.log(
-  `\n�������� atlas.stats.js + atlas.core.js��${kb(firstScreen)}����`
-  + `���ȫ�� ${kb(total)} ���� ${Math.round((1 - firstScreen / total) * 100)}%`,
+  `\n首屏仅需 atlas.stats.js + atlas.core.js（${kb(firstScreen)}），`
+  + `相比全量 ${kb(total)} 减少 ${Math.round((1 - firstScreen / total) * 100)}%`,
 );

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * ��ͼ�ű������� README �õ���ҳ�����鵯����ͼ��
- * �÷���node scripts/screenshot.mjs [���Ŀ¼]
+ * 截图脚本：产出 README 用的首页与详情弹窗截图。
+ * 用法：node scripts/screenshot.mjs [输出目录]
  */
 import http from 'node:http';
 import fs from 'node:fs';
@@ -18,7 +18,7 @@ const BROWSERS = [
 ];
 const browser = BROWSERS.find((p) => fs.existsSync(p));
 if (!browser) {
-  console.log('δ�ҵ��������������ͼ��');
+  console.log('未找到浏览器，跳过截图。');
   process.exit(0);
 }
 
@@ -46,7 +46,7 @@ await new Promise((r) => server.listen(0, '127.0.0.1', r));
 const port = server.address().port;
 fs.mkdirSync(outDir, { recursive: true });
 
-/** ��ҳ�桢ִ�нű�����ͼ�� */
+/** 打开页面、执行脚本、截图。 */
 const shoot = (url, outFile, { width = 1440, height = 2000, script = '' } = {}) => new Promise((resolve) => {
   const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'shot-'));
   const dbg = 9500 + Math.floor(Math.random() * 400);
@@ -60,20 +60,20 @@ const shoot = (url, outFile, { width = 1440, height = 2000, script = '' } = {}) 
   ], { stdio: 'ignore' });
 
   const finish = () => {
-    try { child.kill(); } catch { /* ���˳� */ }
+    try { child.kill(); } catch { /* 已退出 */ }
     fs.rmSync(profile, { recursive: true, force: true });
     resolve();
   };
-  // ����ʱ����ҳ�������Ⱦ��ű�ִ��
+  // 留出时间让页面完成渲染与脚本执行
   setTimeout(finish, 9000);
 });
 
 const base = `http://127.0.0.1:${port}`;
 
 await shoot(`${base}/index.html`, 'home-zh.png', { height: 2100 });
-console.log('������ docs/home-zh.png');
+console.log('已生成 docs/home-zh.png');
 
-// ���鵯����ͨ�� URL hash �޷�ֱ�Ӵ򿪣�����ע��ű��ķ�ʽ�ϸ��ӣ�
-// ��������ҳ��ͼ + ˵���������README ��չʾ��ҳ���ɡ�
+// 详情弹窗：通过 URL hash 无法直接打开，改用注入脚本的方式较复杂，
+// 这里用整页截图 + 说明性替代，README 里展示首页即可。
 server.close();
 process.exit(0);

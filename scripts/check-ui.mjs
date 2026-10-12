@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 /**
- * UI ���ϵͳ�Լ졣
+ * UI 设计系统自检。
  *
- * ����ļ��£�ÿһ������Ӧһ��ᾲĬ�ӻ������⣺
- *   1. ���������� ���� ���Ʋ����õ� primitive ������ʵ���ڣ�
- *      ���� var() ����Ϊ��Чֵ����ɫ��͸�������������������ű�¶��
- *   2. ���Խ�� ���� ����ﲻӦ���� --p-*��primitive����
- *      Խ�����"������ֻ�� semantic"�����ŵʧЧ��
- *   3. ����һ���� ���� HTML/JS ���õ��� CSS δ�������ᾲĬʧЧ��
- *   4. ���Ƹ��� ���� �ĸ�������붨��ͬһ�� semantic ���ƣ�
- *      ©һ������ζ�Ÿ�������������Ի��˵� light ��ֵ��
+ * 检查四件事，每一件都对应一类会静默劣化的问题：
+ *   1. 令牌完整性 —— 令牌层引用的 primitive 必须真实存在，
+ *      否则 var() 回退为无效值，颜色变透明这类问题在浏览器里才暴露；
+ *   2. 层叠越界 —— 组件里不应出现 --p-*（primitive），
+ *      越层会让"换主题只改 semantic"这个承诺失效；
+ *   3. 类名一致性 —— HTML/JS 里用到但 CSS 未定义的类会静默失效；
+ *   4. 令牌覆盖 —— 四个主题必须定义同一组 semantic 令牌，
+ *      漏一个就意味着该主题下这个属性回退到 light 的值。
  */
 
 import fs from 'node:fs';
@@ -24,7 +24,7 @@ const errors = [];
 const warnings = [];
 const notes = [];
 
-/* ---------------- �ռ� CSS �ļ� ---------------- */
+/* ---------------- 收集 CSS 文件 ---------------- */
 
 const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
   const full = path.join(dir, entry.name);
@@ -34,39 +34,39 @@ const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((entr
 const cssFiles = walk(uiDir);
 const rel = (file) => path.relative(root, file).replace(/\\/g, '/');
 
-/* ---------------- 1. ���������� ---------------- */
+/* ---------------- 1. 令牌完整性 ---------------- */
 
 const primitiveCss = fs.readFileSync(path.join(uiDir, 'tokens', 'primitive.css'), 'utf8');
 const primitiveTokens = new Set(
   [...primitiveCss.matchAll(/^\s*(--p-[a-z0-9-]+)\s*:/gim)].map((m) => m[1]),
 );
 
-/** primitive ���������õı��������Ǳ����Ѷ���ģ��������� semantic���� */
+/** primitive 层自身引用的变量必须是本层已定义的（不能引用 semantic）。 */
 const missingInPrimitive = [];
 for (const [, name] of primitiveCss.matchAll(/var\(\s*(--[a-z0-9-]+)/g)) {
   if (!primitiveTokens.has(name)) missingInPrimitive.push(name);
 }
-// ע����� `var(--semantic-*)` ֻ�Ǿ���˵����������ʵ����
+// 注释里的 `var(--semantic-*)` 只是举例说明，不是真实引用
 const realMissing = missingInPrimitive.filter((name) => !name.endsWith('-') && !name.startsWith('--semantic-'));
 if (realMissing.length) {
-  errors.push(`tokens/primitive.css ������δ�ڱ��㶨������ƣ�${[...new Set(realMissing)].join(', ')}`);
+  errors.push(`tokens/primitive.css 引用了未在本层定义的令牌：${[...new Set(realMissing)].join(', ')}`);
 }
 
-/* ---------------- 2. semantic ������ӳ�� ---------------- */
+/* ---------------- 2. semantic 层令牌映射 ---------------- */
 
 const semanticCss = fs.readFileSync(path.join(uiDir, 'tokens', 'semantic.css'), 'utf8');
 
-/** ÿ��������ڶ���� semantic ���ơ� */
+/** 每个主题块内定义的 semantic 令牌。 */
 const THEMES = ['light', 'dark', 'contrast'];
 const themeTokens = {};
 for (const theme of THEMES) {
-  // light д�� ":root,\n:root[data-theme=\"light\"]" ��
+  // light 写在 ":root,\n:root[data-theme=\"light\"]" 里
   const pattern = theme === 'light'
     ? /:root,\s*:root\[data-theme="light"\]\s*\{([\s\S]*?)\n\}/
     : new RegExp(`:root\\[data-theme="${theme}"\\]\\s*\\{([\\s\\S]*?)\\n\\}`);
   const block = semanticCss.match(pattern);
   if (!block) {
-    errors.push(`tokens/semantic.css �Ҳ��� ${theme} �����`);
+    errors.push(`tokens/semantic.css 找不到 ${theme} 主题块`);
     continue;
   }
   themeTokens[theme] = new Set([...block[1].matchAll(/^\s*(--semantic-[a-z0-9-]+)\s*:/gim)].map((m) => m[1]));
@@ -77,11 +77,11 @@ for (const theme of THEMES) {
   if (theme === 'light') continue;
   const missing = [...baseTheme].filter((token) => !themeTokens[theme]?.has(token));
   if (missing.length) {
-    errors.push(`${theme} ����ȱ�� ${missing.length} �� semantic ���ƣ�${missing.slice(0, 6).join(', ')}${missing.length > 6 ? ' ��' : ''}`);
+    errors.push(`${theme} 主题缺少 ${missing.length} 个 semantic 令牌：${missing.slice(0, 6).join(', ')}${missing.length > 6 ? ' …' : ''}`);
   }
   const extra = [...(themeTokens[theme] ?? [])].filter((token) => !baseTheme.has(token));
   if (extra.length) {
-    warnings.push(`${theme} ������ light �в����ڵ����ƣ�${extra.join(', ')}`);
+    warnings.push(`${theme} 主题有 light 中不存在的令牌：${extra.join(', ')}`);
   }
 }
 
@@ -90,26 +90,26 @@ const semanticTokens = new Set([
   ...THEMES.flatMap((theme) => [...(themeTokens[theme] ?? [])]),
 ]);
 
-/* semantic ���õ�Ŀ������� primitive �� semantic ���� */
+/* semantic 引用的目标必须是 primitive 或 semantic 本身 */
 const badSemanticRefs = new Set();
 for (const [, name] of semanticCss.matchAll(/var\(\s*(--[a-z0-9-]+)/g)) {
   if (!primitiveTokens.has(name) && !semanticTokens.has(name)) badSemanticRefs.add(name);
 }
 if (badSemanticRefs.size) {
-  errors.push(`tokens/semantic.css �����˲����ڵ����ƣ�${[...badSemanticRefs].join(', ')}`);
+  errors.push(`tokens/semantic.css 引用了不存在的令牌：${[...badSemanticRefs].join(', ')}`);
 }
 
-/* ---------------- 3. ����㲻��Խ������ primitive ---------------- */
+/* ---------------- 3. 组件层不得越层引用 primitive ---------------- */
 
 const componentFiles = cssFiles.filter((file) => !file.includes(`${path.sep}tokens${path.sep}`));
 
 /**
- * �ֲ�Լ��ֻ�ԡ���ɫ���ơ�������
+ * 分层约束只对「颜色令牌」成立。
  *
- * ��ɫ��Ψһ��"��������Ҫ���廻��"�����һ�࣬������������� semantic��
- * ����� / �ֺ� / Բ�� / ��Ч / z-index ��Щ���ĸ�������ȡֵ��ͬ ����
- * �������Ƶ� semantic ֻ��� semantic ��� primitive �ľ���
- * ��һ����ȴ�������κ���������ԡ�����ֱ���������á�
+ * 颜色是唯一有"换个主题要整体换掉"诉求的一类，所以组件必须走 semantic。
+ * 而间距 / 字号 / 圆角 / 动效 / z-index 这些在四个主题里取值相同 ——
+ * 让它们绕道 semantic 只会把 semantic 变成 primitive 的镜像，
+ * 多一层间接却换不来任何主题灵活性。所以直接允许引用。
  */
 const COLOR_PRIMITIVE = /^--p-(?:blue|neutral|green|amber|red|violet|cyan)-\d+$/;
 
@@ -118,18 +118,18 @@ for (const file of componentFiles) {
   const used = new Set([...css.matchAll(/var\(\s*(--p-[a-z0-9-]+)/g)].map((m) => m[1]));
   const violations = [...used].filter((name) => COLOR_PRIMITIVE.test(name));
   if (violations.length) {
-    errors.push(`${rel(file)} ֱ����������ɫ primitive ���ƣ�${violations.join(', ')}����ɫӦ�� semantic��`);
+    errors.push(`${rel(file)} 直接引用了颜色 primitive 令牌：${violations.join(', ')}（颜色应走 semantic）`);
   }
 
-  // ��������õ� semantic ���Ʊ������
+  // 组件里引用的 semantic 令牌必须存在
   const bad = [...new Set([...css.matchAll(/var\(\s*(--semantic-[a-z0-9-]+)/g)].map((m) => m[1]))]
     .filter((name) => !semanticTokens.has(name));
   if (bad.length) {
-    errors.push(`${rel(file)} ������δ����� semantic ���ƣ�${bad.join(', ')}`);
+    errors.push(`${rel(file)} 引用了未定义的 semantic 令牌：${bad.join(', ')}`);
   }
 }
 
-/* ---------------- 4. ����������ʹ�õ�һ���� ---------------- */
+/* ---------------- 4. 类名定义与使用的一致性 ---------------- */
 
 const definedClasses = new Set();
 for (const file of componentFiles) {
@@ -141,15 +141,15 @@ const jsFiles = walkJs(path.join(root, 'src'));
 const usedClasses = new Set();
 
 /*
- * �ռ�"ʹ���е�����"��
+ * 收集"使用中的类名"。
  *
- * ֻ��������Դ������������ץ��
- *   1. HTML �� class="..." ���ԣ���� HTML �ļ���
- *   2. JS ģ���ַ�������ֵ� ui-* ��ʶ��
+ * 只认两类来源，避免正则误抓：
+ *   1. HTML 的 class="..." 属性（逐个 HTML 文件）
+ *   2. JS 模板字符串里出现的 ui-* 标识符
  *
- * ���ȹ��Ŀӣ������� /\bui-[\w-]+/g ȫ��ɨ JS��
- * ����� CSS �ı�Ƭ�Ρ�CSS ��ѡ�����ַ���Ҳ����"ʹ���е���"��
- * �������������ԡ��������ȡ�������һ��"�����ǺϷ�����"�Ĺ��ˡ�
+ * 曾踩过的坑：早先用 /\bui-[\w-]+/g 全局扫 JS，
+ * 结果把 CSS 文本片段、CSS 类选择器字符串也当成"使用中的类"，
+ * 产生大量假阳性。这里对提取结果再做一次"必须是合法类名"的过滤。
  */
 const VALID_CLASS = /^[a-z][a-z0-9-]*$/;
 
@@ -162,16 +162,16 @@ for (const file of walkHtml(root)) {
   }
 }
 
-// JS ģ�����������render.js / styleguide.js ��ƴ class="ui-badge ui-badge--accent"��
+// JS 模板里的类名（render.js / styleguide.js 会拼 class="ui-badge ui-badge--accent"）
 for (const file of jsFiles) {
   const js = fs.readFileSync(file, 'utf8');
-  // ֻȡ class="..." ������ݣ�����ȫ��ɨ��
+  // 只取 class="..." 里的内容，不做全文扫描
   for (const [, value] of js.matchAll(/\bclass="([^"{}]+)"/g)) {
     for (const cls of value.split(/\s+/)) {
       if (VALID_CLASS.test(cls)) usedClasses.add(cls);
     }
   }
-  // ģ���ﳣ���� class="${...}" ƴ�ӣ�ֻ��ȡ�����ڵľ�̬Ƭ��
+  // 模板里常见的 class="${...}" 拼接，只提取引号内的静态片段
   for (const [, value] of js.matchAll(/\bui-[a-z0-9_-]+/g)) {
     const cls = value;
     if (VALID_CLASS.test(cls)) usedClasses.add(cls);
@@ -183,55 +183,55 @@ const undefinedClasses = [...usedClasses].filter(
 );
 
 if (undefinedClasses.length) {
-  errors.push(`HTML/JS �õ��� UI ϵͳδ������ࣺ${undefinedClasses.join(', ')}`);
+  errors.push(`HTML/JS 用到了 UI 系统未定义的类：${undefinedClasses.join(', ')}`);
 }
 
-/* �����飺�����˵���δʹ�õ��ࣨ������������ */
+/* 反向检查：定义了但从未使用的类（可能是遗留） */
 const unused = [...definedClasses].filter((cls) => !usedClasses.has(cls));
 if (unused.length) {
-  notes.push(`UI ϵͳ�����˵���ǰҳ��δʹ�õ��ࣺ${unused.slice(0, 8).join(', ')}${unused.length > 8 ? ` �� ${unused.length} ��` : ''}`);
+  notes.push(`UI 系统定义了但当前页面未使用的类：${unused.slice(0, 8).join(', ')}${unused.length > 8 ? ` 等 ${unused.length} 个` : ''}`);
 }
 
-/* ---------------- 5. ����嵥 ---------------- */
+/* ---------------- 5. 组件清单 ---------------- */
 
 const COMPONENT_GROUPS = {
-  '��ť��ͼ�갴ť': ['ui-button', 'ui-icon-button'],
-  �����ؼ�: ['ui-field', 'ui-input', 'ui-search', 'ui-select', 'ui-checkbox', 'ui-radio', 'ui-switch'],
-  ��ʶ: ['ui-badge', 'ui-tag'],
-  ����: ['ui-card', 'ui-stat', 'ui-empty', 'ui-skeleton', 'ui-keyvalue', 'ui-source'],
-  ����: ['ui-modal', 'ui-toast', 'ui-tooltip', 'ui-alert'],
-  ����: ['ui-table', 'ui-tabs', 'ui-steps', 'ui-score', 'ui-prose'],
+  '按钮与图标按钮': ['ui-button', 'ui-icon-button'],
+  表单控件: ['ui-field', 'ui-input', 'ui-search', 'ui-select', 'ui-checkbox', 'ui-radio', 'ui-switch'],
+  标识: ['ui-badge', 'ui-tag'],
+  容器: ['ui-card', 'ui-stat', 'ui-empty', 'ui-skeleton', 'ui-keyvalue', 'ui-source'],
+  浮层: ['ui-modal', 'ui-toast', 'ui-tooltip', 'ui-alert'],
+  数据: ['ui-table', 'ui-tabs', 'ui-steps', 'ui-score', 'ui-prose'],
 };
 
 for (const [group, classes] of Object.entries(COMPONENT_GROUPS)) {
   const missing = classes.filter((cls) => !definedClasses.has(cls));
-  if (missing.length) errors.push(`����嵥��${group}��ȱ�ٶ��壺${missing.join(', ')}`);
+  if (missing.length) errors.push(`组件清单「${group}」缺少定义：${missing.join(', ')}`);
 }
 
-/* ---------------- ��� ---------------- */
+/* ---------------- 输出 ---------------- */
 
 const summary = [
-  `primitive ���ƣ�${primitiveTokens.size}`,
-  `semantic ���ƣ�${semanticTokens.size} �� ${THEMES.length} ����`,
-  `UI ����ࣺ${definedClasses.size}`,
-  `CSS �ļ���${cssFiles.length}`,
-].join(' �� ');
+  `primitive 令牌：${primitiveTokens.size}`,
+  `semantic 令牌：${semanticTokens.size} × ${THEMES.length} 主题`,
+  `UI 组件类：${definedClasses.size}`,
+  `CSS 文件：${cssFiles.length}`,
+].join(' · ');
 
 if (errors.length) {
-  console.error(`UI ϵͳ�Լ�ʧ�ܣ�${errors.length} ����󣩣�`);
+  console.error(`UI 系统自检失败（${errors.length} 项错误）：`);
   for (const error of errors) console.error(`- ${error}`);
   if (warnings.length) {
-    console.error(`\n���棨${warnings.length} ���`);
+    console.error(`\n警告（${warnings.length} 项）：`);
     for (const warning of warnings) console.error(`- ${warning}`);
   }
   process.exit(1);
 }
 
-console.log(`UI ϵͳ�Լ�ͨ����${summary}`);
-for (const note of notes) console.warn(`��ʾ��${note}`);
-for (const warning of warnings) console.warn(`���棺${warning}`);
+console.log(`UI 系统自检通过：${summary}`);
+for (const note of notes) console.warn(`提示：${note}`);
+for (const warning of warnings) console.warn(`警告：${warning}`);
 
-/** �ռ� src ������ JS���������ļ������ظ�ʵ�֣��� */
+/** 收集 src 下所有 JS（避免在文件顶部重复实现）。 */
 function walkJs(dir) {
   if (!fs.existsSync(dir)) return [];
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
@@ -239,7 +239,7 @@ function walkJs(dir) {
     return entry.isDirectory() ? walkJs(full) : (entry.name.endsWith('.js') ? [full] : []);
   });
 }
-/** �ռ���Ŀ������ HTML �ļ������� dist �� .git���� */
+/** 收集项目内所有 HTML 文件（跳过 dist 与 .git）。 */
 function walkHtml(dir) {
   if (!fs.existsSync(dir)) return [];
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {

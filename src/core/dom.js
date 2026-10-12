@@ -1,24 +1,24 @@
 /**
- * DOM ��������ȫ HTML ת����Ԫ�ش�����
+ * DOM 辅助：安全 HTML 转义与元素创建。
  *
- * ���а������ݶ����innerHTML�����ת�岻�ǿ�ѡ�ķ����Դ��� ����
- * ���������ⲿ��ҳժ¼������ת����ڸ�ҳ����һ�� XSS ���ӡ�
- * ������ͬ���� esc()����ɢ���� 8 ��ģ������Ｏ��һ����
+ * 所有案例内容都会进innerHTML，因此转义不是可选的防御性代码 ——
+ * 数据来自外部网页摘录，不做转义等于给页面留一个 XSS 口子。
+ * 上游用同样的 esc()，但散落在 8 处模板里；这里集中一处。
  */
 
 const ESCAPE_MAP = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
 
-/** HTML �ı�ת�塣������ַ������մ����� */
+/** HTML 文本转义。传入非字符串按空处理。 */
 export const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ESCAPE_MAP[char]);
 
 /**
- * �ӿ��ŵľ�̬Ƭ�����鹹�� HTML��
- * ���÷�����֤Ƭ�α��������û����ݣ��û�����һ���ȹ� esc()��
+ * 从可信的静态片段数组构建 HTML。
+ * 调用方负责保证片段本身不含用户数据；用户数据一律先过 esc()。
  */
 export const html = (strings, ...values) =>
   strings.reduce((acc, str, index) => acc + str + (index < values.length ? values[index] : ''), '');
 
-/** ���� �� �����б� HTML����������˵�ռλ�İ��� */
+/** 数组 → 无序列表 HTML；空数组回退到占位文案。 */
 export const renderList = (items, emptyLabel) => {
   if (!Array.isArray(items) || items.length === 0) {
     return `<p class="section__body">${esc(emptyLabel)}</p>`;
@@ -26,7 +26,7 @@ export const renderList = (items, emptyLabel) => {
   return `<ul class="list">${items.map((item) => `<li>${esc(item)}</li>`).join('')}</ul>`;
 };
 
-/** ���� �� ��Ų������������������ã��� */
+/** 数组 → 编号步骤流（技术工作流用）。 */
 export const renderSteps = (steps, emptyLabel) => {
   if (!Array.isArray(steps) || steps.length === 0) {
     return `<p class="section__body">${esc(emptyLabel)}</p>`;
@@ -34,7 +34,7 @@ export const renderSteps = (steps, emptyLabel) => {
   return `<ol class="steps">${steps.map((step) => `<li>${esc(step)}</li>`).join('')}</ol>`;
 };
 
-/** ���� �� ��ǩ�ơ� */
+/** 数组 → 标签云。 */
 export const renderChips = (items, emptyLabel) => {
   if (!Array.isArray(items) || items.length === 0) {
     return `<p class="section__body">${esc(emptyLabel)}</p>`;
@@ -42,7 +42,7 @@ export const renderChips = (items, emptyLabel) => {
   return `<div class="chips">${items.map((item) => `<span class="tag">${esc(item)}</span>`).join('')}</div>`;
 };
 
-/** �������� DOM���� DocumentFragment һ���Թ��أ�������� append ����������š� */
+/** 批量插入 DOM：用 DocumentFragment 一次性挂载，避免逐个 append 触发多次重排。 */
 export const mountAll = (container, nodes) => {
   const fragment = document.createDocumentFragment();
   fragment.append(...nodes);
@@ -50,7 +50,7 @@ export const mountAll = (container, nodes) => {
 };
 
 /**
- * ���� <select> �� <option> �б���
+ * 构建 <select> 的 <option> 列表。
  * @param {Array<[string, string, number]>} options [value, label, count]
  */
 export const renderOptions = (options, allLabel) => {
@@ -60,7 +60,7 @@ export const renderOptions = (options, allLabel) => {
     .join('');
 };
 
-/** �����������������룬����ÿ�ΰ��������� 127 �ſ�Ƭ�� */
+/** 防抖：用于搜索输入，避免每次按键都重排 127 张卡片。 */
 export const debounce = (fn, wait = 160) => {
   let timer = null;
   const wrapped = (...args) => {

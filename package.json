@@ -4,7 +4,7 @@
   "private": true,
   "license": "MIT",
   "type": "module",
-  "description": "�ɼ������ɺ˶ԡ���Ǩ�Ƶ���ҵ AI ��ذ����⡣����������̬վ�㽻����",
+  "description": "可检索、可核对、可迁移的企业 AI 落地案例库。以零依赖静态站点交付。",
   "engines": {
     "node": ">=22"
   },

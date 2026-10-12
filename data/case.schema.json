@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:fde-atlas:case.schema.json",
   "title": "FDE Atlas Case",
-  "description": "��ҵ AI ��ذ����ĵ�һ��ʵ�ṹ��ע�⣺detail_* �� evidence_label ��Ϊ�����ֶΣ��ɹ���������������㣬�����������ڱ��ļ��С�directness �� evidence_level ����һ�£�У���ǿ�ƣ���",
+  "description": "企业 AI 落地案例的单一事实结构。注意：detail_* 与 evidence_label 均为派生字段，由构建期评分引擎计算，不允许出现在本文件中。directness 与 evidence_level 必须一致（校验层强制）。",
   "type": "array",
   "items": { "$ref": "#/$defs/case" },
   "$defs": {
@@ -33,11 +33,11 @@
         "id": {
           "type": "string",
           "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
-          "description": "�ȶ����� ID����ʽΪ <��Դǰ׺>-<��λ���>"
+          "description": "稳定案例 ID，格式为 <来源前缀>-<三位序号>"
         },
         "technical_reference": {
           "type": "boolean",
-          "description": "�Ƿ����Ϊ���������ο����� validate.mjs �Ľ������ǿ�ƣ�true ʱ technical_workflow ��������"
+          "description": "是否可作为技术方案参考。由 validate.mjs 的交叉规则强制：true 时 technical_workflow 必须满分"
         },
         "source": { "type": "string", "minLength": 1 },
         "company": { "type": "string", "minLength": 1 },
@@ -53,7 +53,7 @@
         "maturity": { "type": "string", "minLength": 1 },
         "maturity_stage": {
           "type": "string",
-          "description": "�ܿشʱ����� src/core/taxonomy.js �� MATURITY_STAGES"
+          "description": "受控词表，见 src/core/taxonomy.js 的 MATURITY_STAGES"
         },
         "url": { "$ref": "#/$defs/httpsUrl" },
         "architecture": { "$ref": "#/$defs/nonEmptyStrings" },
@@ -64,7 +64,7 @@
         "case_summary": { "type": "string", "minLength": 30 },
         "evidence_level": {
           "enum": ["A", "B", "C", "D"],
-          "description": "A=������ֱ����Դ B=�ٷ�������Դ C=���Ŷ��β��� D=����������"
+          "description": "A=案例级直接来源 B=官方汇总来源 C=可信二次材料 D=线索待核验"
         },
         "source_record": {
           "type": "object",
@@ -79,27 +79,27 @@
             "source_type": {
               "type": "string",
               "minLength": 1,
-              "description": "��Դ�ľ������ͣ����̿ͻ����� / ��ҵ��ȱ��� / ѧ������ ...�������ر༭�������Դϸ��"
+              "description": "来源的具体类型（厂商客户案例 / 企业年度报告 / 学术论文 ...），承载编辑补充的来源细节"
             },
             "directness": {
               "enum": ["case_level", "company_level", "aggregate", "secondary", "lead"],
-              "description": "������������Դֱ����ö�١���ǩ�� i18n �������DIRECTNESS_ZH / DIRECTNESS_EN������ evidence_level ����һ�£��� validate.mjs ����У��ǿ��"
+              "description": "语言中立的来源直接性枚举。标签在 i18n 层解析（DIRECTNESS_ZH / DIRECTNESS_EN）。与 evidence_level 必须一致，由 validate.mjs 交叉校验强制"
             },
             "claim_origin": { "type": "string", "minLength": 1 },
             "independently_verified": {
               "type": "boolean",
-              "description": "�������ڲƱ�/���/ѧ��/��������Ʋ���ʱ�ſ�Ϊ true"
+              "description": "仅当存在财报/监管/学术/第三方审计材料时才可为 true"
             },
             "accessed_at": { "$ref": "#/$defs/isoDate" },
             "collection_title": {
               "type": "string",
               "minLength": 1,
-              "description": "���������Ĺٷ��ϼ����ƣ����ڶస��������Դ�Ķ�λ"
+              "description": "案例所属的官方合集名称，用于多案例汇总来源的定位"
             },
             "case_number": {
               "type": "integer",
               "minimum": 1,
-              "description": "�����ڹٷ��ϼ��е����"
+              "description": "案例在官方合集中的序号"
             },
             "pdf_page": { "type": "integer", "minimum": 1 },
             "printed_page": { "type": "integer", "minimum": 1 },
@@ -109,7 +109,7 @@
         },
         "analysis_boundary": {
           "type": "object",
-          "description": "���ֶα�ע�������ǹ�����¶���ṹ���������Ǳ༭����",
+          "description": "逐字段标注该内容是公开披露、结构化整理还是编辑推演",
           "required": ["business_problem", "solution", "architecture", "fde_actions", "result"],
           "properties": {
             "business_problem": { "type": "string", "minLength": 1 },

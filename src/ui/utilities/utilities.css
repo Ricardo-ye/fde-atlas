@@ -1,11 +1,11 @@
 /*
- * ������ ���� ���������ơ�ֻ����ظ����� 3 �����ϵĲ�������
+ * 工具类 —— 少量、克制、只解决重复出现 3 次以上的布局需求。
  *
- * �жϱ�׼���������廯 class ��������Խ���ģ��Ͳ�д�����ࡣ
- * �������� !important �Ƿ�ģʽ ���� ��˵���������ȱ�˱��塣
+ * 判断标准：能用语义化 class 或组件属性解决的，就不写工具类。
+ * 工具类用 !important 是反模式 —— 那说明组件本身缺了变体。
  */
 
-/* ---------- ���� ---------- */
+/* ---------- 布局 ---------- */
 
 .ui-stack {
   display: flex;
@@ -28,13 +28,13 @@
 .ui-row--wrap { flex-wrap: wrap; }
 .ui-row--start { align-items: flex-start; }
 
-/* ��൵λ��sm ���գ�8px��/ Ĭ�ϣ�12px��/ lg ���ɣ�24px�� */
+/* 间距档位：sm 紧凑（8px）/ 默认（12px）/ lg 宽松（24px） */
 .ui-row--sm { gap: var(--p-space-2); }
 .ui-row--lg { gap: var(--p-space-5); }
 
 .ui-spacer { flex: 1; }
 
-/* ---------- �Ű� ---------- */
+/* ---------- 排版 ---------- */
 
 .ui-muted { color: var(--semantic-text-tertiary); }
 .ui-secondary { color: var(--semantic-text-secondary); }
@@ -75,7 +75,7 @@
   text-transform: uppercase;
 }
 
-/* ---------- ��� ---------- */
+/* ---------- 间距 ---------- */
 
 .ui-mt-0 { margin-top: 0; }
 .ui-mt-2 { margin-top: var(--p-space-2); }
@@ -84,9 +84,9 @@
 .ui-mt-5 { margin-top: var(--p-space-5); }
 .ui-mt-6 { margin-top: var(--p-space-6); }
 
-/* ---------- �ɼ��� ----------
-   .ui-hidden ���������ϰ����У����Ӿ����أ���.ui-invisible �������Ƴ���
-   ������������Ϊ"�Ӿ����ص���Ļ�Ķ����ɶ�"�ǳ������� */
+/* ---------- 可见性 ----------
+   .ui-hidden 保留在无障碍树中（仅视觉隐藏），.ui-invisible 从树中移除。
+   区分两者是因为"视觉隐藏但屏幕阅读器可读"是常见需求。 */
 
 .ui-hidden {
   position: absolute;
@@ -109,7 +109,7 @@
   .ui-hide-sm { display: none !important; }
 }
 
-/* ---------- ���� ---------- */
+/* ---------- 容器 ---------- */
 
 .ui-container {
   width: 100%;
@@ -121,7 +121,7 @@
 .ui-container--md { max-width: var(--p-container-md); }
 .ui-container--lg { max-width: var(--p-container-lg); }
 
-/* ---------- ���� ---------- */
+/* ---------- 网格 ---------- */
 
 .ui-grid {
   display: grid;
@@ -137,7 +137,7 @@
   gap: var(--p-space-5);
 }
 
-/* ---------- ��ת���ӣ������û�ר�ã� ---------- */
+/* ---------- 跳转链接（键盘用户专用） ---------- */
 
 .ui-skip-link {
   position: absolute;

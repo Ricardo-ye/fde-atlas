@@ -1,8 +1,8 @@
 /*
- * Base �㣺reset ��ȫ���Ű档
+ * Base 层：reset 与全局排版。
  *
- * Ŀ�꣺�������Ĭ����ʽ���첻��Ӱ����Ⱦ��Ϊ�ϲ�����ṩȷ������㡣
- * ��㲻Ӧ�ó����κ����ѡ������
+ * 目标：让浏览器默认样式差异不会影响渲染，为上层组件提供确定的起点。
+ * 这层不应该出现任何组件选择器。
  */
 
 /* ---------- reset ---------- */
@@ -21,7 +21,7 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scroll-behavior: smooth;
-  /* ê����תʱ���̶������������ռ䣬�������ᱻ��ס */
+  /* 锚点跳转时给固定导航栏留出空间，否则标题会被遮住 */
   scroll-padding-top: calc(var(--p-control-height-lg) + var(--p-space-6));
 }
 
@@ -37,7 +37,7 @@ body {
   min-height: 100vh;
 }
 
-/* ����Ԫ��Ĭ�ϼ̳����壬��������ؼ��ڲ�ͬϵͳ�����岻һ�� */
+/* 所有元素默认继承字体，避免表单控件在不同系统上字体不一致 */
 button,
 input,
 select,
@@ -69,7 +69,7 @@ a:hover {
   text-decoration: underline;
 }
 
-/* ����Ĭ�ϼ̳��������иߣ�����������Ĭ�� margin ���� */
+/* 标题默认继承字重与行高，避免各浏览器默认 margin 差异 */
 h1, h2, h3, h4, h5, h6 {
   font-size: inherit;
   font-weight: inherit;
@@ -93,9 +93,9 @@ table {
   border-spacing: 0;
 }
 
-/* ---------- ����ɼ��� ----------
-   ֻ�ڼ��̵���ʱ��ʾ���㻷�����������ʾ�����Ա����ɷ����ԡ�
-   ʹ�� :focus-visible ���� :focus��������������ֶ��������� */
+/* ---------- 焦点可见性 ----------
+   只在键盘导航时显示焦点环；鼠标点击不显示，但仍保留可访问性。
+   使用 :focus-visible 而非 :focus，避免鼠标点击出现多余轮廓。 */
 
 :focus {
   outline: none;
@@ -107,7 +107,7 @@ table {
   border-radius: var(--p-radius-xs);
 }
 
-/* ---------- ����Ԫ��Ĭ����ʽͳһ ---------- */
+/* ---------- 表单元素默认样式统一 ---------- */
 
 input,
 select,
@@ -125,7 +125,7 @@ textarea {
 input::placeholder,
 textarea::placeholder {
   color: var(--semantic-text-tertiary);
-  opacity: 1; /* Firefox Ĭ�Ͻ��� placeholder ��͸���� */
+  opacity: 1; /* Firefox 默认降低 placeholder 不透明度 */
 }
 
 input:focus-visible,
@@ -136,7 +136,7 @@ textarea:focus-visible {
   box-shadow: 0 0 0 var(--p-border-width-3) var(--semantic-accent-subtle-bg);
 }
 
-/* ����̬����ֻ�Ǳ�ң���Ҫ�� not-allowed �����ͶԱ� */
+/* 禁用态：不只是变灰，还要标 not-allowed 并降低对比 */
 input:disabled,
 select:disabled,
 textarea:disabled {
@@ -145,7 +145,7 @@ textarea:disabled {
   cursor: not-allowed;
 }
 
-/* �������������¼�ͷ�ڲ����������ռλ���ƻ����� */
+/* 数字输入框的上下箭头在部分浏览器会占位并破坏对齐 */
 input[type="number"] {
   appearance: textfield;
   -moz-appearance: textfield;
@@ -157,12 +157,12 @@ input[type="number"]::-webkit-inner-spin-button {
   margin: 0;
 }
 
-/* �������ԭ�������ť���Զ��������ť�ظ� */
+/* 搜索框的原生清除按钮与自定义清除按钮重复 */
 input[type="search"]::-webkit-search-cancel-button {
   appearance: none;
 }
 
-/* ---------- ������ ---------- */
+/* ---------- 滚动条 ---------- */
 
 * {
   scrollbar-width: thin;
@@ -189,14 +189,14 @@ input[type="search"]::-webkit-search-cancel-button {
   background-color: var(--semantic-border-strong);
 }
 
-/* ---------- ѡ���ı� ---------- */
+/* ---------- 选中文本 ---------- */
 
 ::selection {
   background-color: var(--semantic-accent-subtle-bg);
   color: var(--semantic-text-primary);
 }
 
-/* ---------- ���ϰ������ؼ��ٶ�Чƫ�� ---------- */
+/* ---------- 无障碍：尊重减少动效偏好 ---------- */
 
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -213,7 +213,7 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 }
 
-/* ---------- ��ӡ ---------- */
+/* ---------- 打印 ---------- */
 
 @media print {
   *,

@@ -1,19 +1,19 @@
 /*
- * FDE Atlas UI System ���� ����ļ���
+ * FDE Atlas UI System —— 入口文件。
  *
- * ����˳�򼴲��˳�򣬲������������
- *   tokens/primitive  ԭʼֵ����������
- *     ��
- *   tokens/semantic   ����ӳ�䣨���� primitive��
- *     ��
- *   base/reset        reset ��ȫ���Ű棨���� semantic ������
- *     ��
- *   components/*      ��������� reset �ṩ��ȷ������㣩
- *     ��
- *   utilities/*       �����ࣨ��󣬱�֤�ܸ���������Ӿ�Ĭ��ֵ��
+ * 引入顺序即层叠顺序，不可随意调整：
+ *   tokens/primitive  原始值（无依赖）
+ *     ↓
+ *   tokens/semantic   语义映射（依赖 primitive）
+ *     ↓
+ *   base/reset        reset 与全局排版（依赖 semantic 变量）
+ *     ↓
+ *   components/*      组件（依赖 reset 提供的确定性起点）
+ *     ↓
+ *   utilities/*       工具类（最后，保证能覆盖组件的视觉默认值）
  *
- * ���ֻ�������� --semantic-*������ --p-* ��ΪԽ�㡣
- * ����Լ���� scripts/check-ui.mjs �Զ���顣
+ * 组件只允许引用 --semantic-*；引用 --p-* 视为越层。
+ * 这条约定由 scripts/check-ui.mjs 自动检查。
  */
 
 @import "./tokens/primitive.css";

@@ -11,66 +11,66 @@
     "B": 23
   },
   "by_industry_group": {
-    "�����빤ҵ": 24,
-    "�����빫������": 6,
-    "רҵ����": 7,
-    "��ҵ��Ӫ������": 6,
-    "����������": 17,
-    "��ͨ������������": 11,
-    "ý�塢Ӫ��������": 4,
-    "ҽ����������ѧ": 16,
-    "�����뱣��": 16,
-    "�Ƽ�������": 16,
-    "��Դ�빫����ҵ": 4
+    "制造与工业": 24,
+    "政务与公共服务": 6,
+    "专业服务": 7,
+    "企业运营与其他": 6,
+    "零售与消费": 17,
+    "交通、旅行与物流": 11,
+    "媒体、营销与体育": 4,
+    "医疗与生命科学": 16,
+    "金融与保险": 16,
+    "科技与软件": 16,
+    "能源与公用事业": 4
   },
   "by_source": {
     "Datawhale": 24,
     "Palantir": 45,
     "OpenAI": 34,
-    "��ҵԭʼ����": 16,
+    "企业原始材料": 16,
     "IBM": 2,
     "Microsoft": 3,
     "AWS": 2,
     "Google Cloud": 1
   },
   "by_maturity_stage": {
-    "������": 72,
-    "��֤�׶�": 8,
-    "δ��ȷ": 2,
-    "��ģ��": 44,
-    "�Ե�": 1
+    "已上线": 72,
+    "验证阶段": 8,
+    "未明确": 2,
+    "规模化": 44,
+    "试点": 1
   },
   "technical_reference_count": 18,
   "independently_verified_count": 0,
   "dimensions": [
     {
       "key": "business_context",
-      "zh": "ҵ�񱳾�",
+      "zh": "业务背景",
       "en": "Business context"
     },
     {
       "key": "solution_workflow",
-      "zh": "��������",
+      "zh": "改造流程",
       "en": "Transformation workflow"
     },
     {
       "key": "technical_workflow",
-      "zh": "����������",
+      "zh": "技术工作流",
       "en": "Technical workflow"
     },
     {
       "key": "human_governance",
-      "zh": "�˻�������",
+      "zh": "人机与治理",
       "en": "Human roles & governance"
     },
     {
       "key": "measured_outcome",
-      "zh": "�������",
+      "zh": "量化结果",
       "en": "Measured outcomes"
     },
     {
       "key": "source_traceability",
-      "zh": "��Դ�ɶ�λ��",
+      "zh": "来源可定位性",
       "en": "Source traceability"
     }
   ],
@@ -2019,7 +2019,9 @@
       "missing_details": []
     },
     {
-      "id": ep",
+      "id": "enterprise-walmart-001",
+      "detail_score": 12,
+      "detail_level": "deep",
       "detail_dimensions": {
         "business_context": 2,
         "solution_workflow": 2,
